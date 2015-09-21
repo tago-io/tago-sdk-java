@@ -4,7 +4,7 @@ package domain;
  *
  * @author Roberto Canoff
  */
-public class InsertDeviceResult {
+public class InsertDataResult {
 
     public Boolean status;
     public String result;

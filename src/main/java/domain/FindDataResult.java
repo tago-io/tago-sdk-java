@@ -1,14 +1,14 @@
 package domain;
 
 import java.util.List;
-import tago.Device;
+import tago.Data;
 
 /**
  *
  * @author Roberto Canoff
  */
-public class FindDeviceResult {
+public class FindDataResult {
 
     public Boolean status;
-    public List<Device> result;
+    public List<Data> result;
 }

@@ -1,11 +1,11 @@
 package example;
 
-import domain.InsertDeviceResult;
+import domain.InsertDataResult;
 import java.util.Date;
 import java.util.List;
 import tago.Constant;
+import tago.Data;
 import tago.Device;
-import tago.Init;
 import tago.Location;
 
 /**
@@ -19,30 +19,31 @@ public class NewMain {
      */
     public static void main(String[] args) {
         
-        Init init = new Init("783c0a20-5ef4-11e5-b9c0-5346110eed9a");
+        Device device = new Device("783c0a20-5ef4-11e5-b9c0-5346110eed9a");
 
-//        Create a variable "Device" to be inserted
-        Device device = new Device();
-        device.variable = "API-Teste";
-        device.unit = "%";
-        device.value = "25";
-        device.type = "text";
-        device.time = new Date();
-        device.location = new Location(40.792673, -98.683232);
+//        Create a variable "data" to be inserted
+        Data data = new Data();
+        data.variable = "API-Teste";
+        data.unit = "%";
+        data.value = "25";
+        data.type = "text";
+        data.time = new Date();
+        data.location = new Location(40.792673, -98.683232);
 
 //        Insert example
-        InsertDeviceResult deviceResult = init.insert(device);
+        InsertDataResult dataResult = device.insert(data);
 
 //        Find example
-        List<Device> devices = init.find(Constant.Find.FILTER, Constant.Filter.TYPE);
+        List<Data> dataList = device.find(Constant.Find.FILTER, Constant.Filter.TYPE);
 
 //        Count example
-        Integer devicesCount = init.count();
+        Integer dataCount = device.count();
 
 //        Delete passing id as parameter
-        Boolean deleteWithId = init.delete("55ff4f52916fd80a086af2ef");
+        Boolean deleteWithId = device.delete("55ff4f52916fd80a086af2ef");
+        
 //        Delete without parameters (deletes the last inserted device)
-        Boolean delete = init.delete();
+        Boolean delete = device.delete();
         
     }
 

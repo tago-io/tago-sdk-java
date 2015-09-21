@@ -5,12 +5,12 @@
  */
 package domain;
 
-import tago.Device;
+import tago.Data;
 
 /**
  *
  * @author Roberto Canoff
  */
-public class DeviceRequest {
-    public Device device;
+public class DataRequest {
+    public Data device;
 }

@@ -1,14 +1,14 @@
 package domain;
 
 import java.util.List;
-import tago.Device;
+import tago.Data;
 
 /**
  *
  * @author Roberto Canoff
  */
-public class DeleteDeviceResult {
+public class FindDataCountResult {
 
     public Boolean status;
-    public String result;
+    public Integer result;
 }
