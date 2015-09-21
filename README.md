@@ -1,4 +1,4 @@
-# Tago - Node.JS Lib
+# Tago - Java Lib
 Official Java lib for Tago
 
 # Code Status
