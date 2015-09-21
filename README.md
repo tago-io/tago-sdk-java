@@ -39,9 +39,9 @@ Integer dataCount = device.count();
 
 ```java
 
-device.delete("55ff4f52916fd80a086af2ef");
+device.delete("put_the_data_id_here");
 // or
-device.delete(); // Without ID the last record will be deleted
+device.delete(); // Without the ID the last record will be deleted
 ```
 
 ### Update Data
