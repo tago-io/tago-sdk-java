@@ -1,5 +1,4 @@
 package domain;
-
 /**
  *
  * @author Roberto Canoff
