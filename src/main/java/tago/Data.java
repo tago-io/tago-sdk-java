@@ -3,7 +3,6 @@ package tago;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
 import java.util.Date;
-
 /**
  *
  * @author Roberto Canoff
@@ -27,7 +26,16 @@ public class Data {
     @JsonIgnore
     @Override
     public String toString() {
-        return "Device{" + "variable=" + variable + ", unit=" + unit + ", value=" + value + ", type=" + type + ", time=" + time + ", location=" + location + ", origin=" + origin + ", id=" + id + '}';
+        return "Device{" + 
+                    "variable=" + variable + 
+                    ", unit=" + unit + 
+                    ", value=" + value + 
+                    ", type=" + type + 
+                    ", time=" + time + 
+                    ", location=" + location + 
+                    ", origin=" + origin + 
+                    ", id=" + id + 
+                '}';
     }
     
     @JsonIgnore
@@ -35,6 +43,4 @@ public class Data {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
-
-
 }

@@ -1,6 +1,5 @@
 package tago;
 
-
 /**
  *
  * @author Roberto Canoff
@@ -8,7 +7,6 @@ package tago;
 public class Constant {
 
     public static class Find {
-
         public static String VARIABLE = "variable";
         public static String VARIABLES = "variables";
         public static String QUERY = "query";
@@ -19,7 +17,6 @@ public class Constant {
     }
 
     public static class Query {
-
         public static String COUNT = "count";
         public static String LAST_LOCATION = "last_location";
         public static String LAST_VALUE = "last_value";
@@ -28,7 +25,6 @@ public class Constant {
     }
 
     public static class Filter {
-
         public static String ID = "id";
         public static String VARIABLE = "variable";
         public static String UNIT = "unit";

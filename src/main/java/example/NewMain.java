@@ -10,7 +10,7 @@ import tago.Location;
 
 /**
  *
- * @author Roberto
+ * @author Roberto Canoff
  */
 public class NewMain {
 
