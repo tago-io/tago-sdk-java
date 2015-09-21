@@ -19,7 +19,7 @@ public class NewMain {
      */
     public static void main(String[] args) {
         
-        Device device = new Device("783c0a20-5ef4-11e5-b9c0-5346110eed9a");
+        Device device = new Device("put_your_token_here");
 
 //        Create a variable "data" to be inserted
         Data data = new Data();
@@ -40,7 +40,7 @@ public class NewMain {
         Integer dataCount = device.count();
 
 //        Delete passing id as parameter
-        Boolean deleteWithId = device.delete("55ff4f52916fd80a086af2ef");
+        Boolean deleteWithId = device.delete("put_the_data_id_here");
         
 //        Delete without parameters (deletes the last inserted device)
         Boolean delete = device.delete();
