@@ -35,7 +35,7 @@ Integer dataCount = device.count();
 ```
 
 ### Delete Data
-**.delete("String");**
+**.delete(String);**
 
 ```java
 
@@ -45,11 +45,13 @@ device.delete(); // Without the ID the last record will be deleted
 ```
 
 ### Update Data
+**.delete(String, Data);**
 
 ```java
-        device.update("put_tye_data_id_here", data);
+
+device.update("put_tye_data_id_here", data);
 // or
-        device.update(data);
+device.update(data);
 ```
 
 ### Listening new data by Socket
