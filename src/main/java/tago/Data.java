@@ -24,23 +24,7 @@ public class Data {
     public String metadata;
 
     @JsonIgnore
-    @Override
-    public String toString() {
-        return "Device{" + 
-                    "variable=" + variable + 
-                    ", unit=" + unit + 
-                    ", value=" + value + 
-                    ", type=" + type + 
-                    ", time=" + time + 
-                    ", location=" + location + 
-                    ", origin=" + origin + 
-                    ", id=" + id + 
-                '}';
-    }
-    
-    @JsonIgnore
     public String getJson(){
-        Gson gson = new Gson();
-        return gson.toJson(this);
+        return new Gson().toJson(this);
     }
 }
