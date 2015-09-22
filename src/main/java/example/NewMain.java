@@ -21,7 +21,7 @@ public class NewMain {
         
         Device device = new Device("put_your_token_here");
 
-//        Create a variable "data" to be inserted
+//        Create a variable "data" to be inserted or updated
         Data data = new Data();
         data.variable = "API-Teste";
         data.unit = "%";
@@ -32,6 +32,12 @@ public class NewMain {
 
 //        Insert example
         InsertDataResult dataResult = device.insert(data);
+        
+//        Update example
+        device.update("put_tye_data_id_here", data);
+        
+//        Updates the last record
+        device.update(data);
 
 //        Find example
         List<Data> dataList = device.find(Constant.Find.FILTER, Constant.Filter.TYPE);
@@ -44,7 +50,5 @@ public class NewMain {
         
 //        Delete without parameters (deletes the last inserted device)
         Boolean delete = device.delete();
-        
     }
-
 }

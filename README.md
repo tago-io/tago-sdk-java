@@ -1,4 +1,4 @@
-# Tago - Node.JS Lib
+# Tago - Java Lib
 Official Java lib for Tago
 
 # Code Status
@@ -47,7 +47,9 @@ device.delete(); // Without the ID the last record will be deleted
 ### Update Data
 
 ```java
-//Not implemented yet
+        device.update("put_tye_data_id_here", data);
+// or
+        device.update(data);
 ```
 
 ### Listening new data by Socket

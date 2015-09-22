@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
 /**
  *
  * @author Roberto Canoff
@@ -33,15 +34,15 @@ public class Device {
                 .add(new MappingJackson2HttpMessageConverter());
     }
 
-    public InsertDataResult insert(Data device) {
-        HttpEntity<Data> request = new HttpEntity<Data>(device, headers);
+    public InsertDataResult insert(Data data) {
+        HttpEntity<Data> request = new HttpEntity<Data>(data, headers);
         return restTemplate.postForObject(URL, request, InsertDataResult.class);
     }
 
     public List<Data> find(String key, String type) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
                 .queryParam(key, type);
-        
+
         HttpEntity entity = new HttpEntity(headers);
 
         HttpEntity<FindDataResult> response = restTemplate
@@ -52,13 +53,13 @@ public class Device {
 
         return response.getBody().result;
     }
-    
+
     public Integer count() {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
                 .queryParam(Constant.Find.QUERY, Constant.Query.COUNT);
-        
+
         HttpEntity entity = new HttpEntity(headers);
-        
+
         HttpEntity<FindDataCountResult> response = restTemplate
                 .exchange(builder.build().encode().toUriString(),
                         HttpMethod.GET,
@@ -71,14 +72,14 @@ public class Device {
     public Boolean delete() {
         return deleteDevice(null);
     }
-    
-    public Boolean delete(String data_ID){
+
+    public Boolean delete(String data_ID) {
         return deleteDevice(data_ID);
     }
-    
-    private Boolean deleteDevice(String data_ID){
+
+    private Boolean deleteDevice(String data_ID) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-        
+
         if (data_ID != null) {
             builder.queryParam("data_ID", data_ID);
         }
@@ -93,12 +94,28 @@ public class Device {
 
         return response.getBody().status;
     }
+
+    public InsertDataResult update(String id, Data data) {
+        return updateDevice(id, data);
+    }
     
-    public InsertDataResult update(Data device) throws Exception{
-        throw new Exception("Not Implemented yet");
+    public InsertDataResult update(Data data) {
+        return updateDevice(null, data);
+    }
+    
+    private InsertDataResult updateDevice(String id, Data data){
+        HttpEntity entity = new HttpEntity(data, headers);
+
+        HttpEntity<InsertDataResult> response = restTemplate
+                .exchange(URL,
+                        HttpMethod.PUT,
+                        entity,
+                        InsertDataResult.class, id);
+
+        return response.getBody();
     }
 
-    public InsertDataResult listening(Data device) throws Exception {
+    public InsertDataResult listening(Data data) throws Exception {
         throw new Exception("Not Implemented yet");
     }
 }
