@@ -57,7 +57,19 @@ device.update(data);
 ### Listening new data by Socket
 
 ```java
-//Not implemented yet
+ // the method device.listening() activates the socket connection that 
+ // listens to the api value changes 
+ device.listening();
+
+ // to start listening to the api you need to use the method socket.on 
+ device.socket.on("data", new Emitter.Listener() {
+
+     @Override
+     public void call(Object... result) {
+//      The method call will be triggered when the data is changed at the api
+//      the result will be the object "result"
+     }
+ });
 ```
 
 # License
