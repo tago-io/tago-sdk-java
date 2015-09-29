@@ -1,8 +1,12 @@
 package example;
 
-import domain.InsertDataResult;
+import com.github.nkzawa.emitter.Emitter;
+import domain.DataResult;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tago.Constant;
 import tago.Data;
 import tago.Device;
@@ -19,19 +23,19 @@ public class NewMain {
      */
     public static void main(String[] args) {
         
-        Device device = new Device("put_your_token_here");
+        Device device = new Device("put_the_device_token_here");
 
 //        Create a variable "data" to be inserted or updated
         Data data = new Data();
         data.variable = "API-Teste";
         data.unit = "%";
         data.value = "25";
-        data.type = "text";
+        data.type = "integer";
         data.time = new Date();
         data.location = new Location(40.792673, -98.683232);
 
 //        Insert example
-        InsertDataResult dataResult = device.insert(data);
+        DataResult dataResult = device.insert(data);
         
 //        Update example
         device.update("put_tye_data_id_here", data);
@@ -50,5 +54,16 @@ public class NewMain {
         
 //        Delete without parameters (deletes the last inserted device)
         Boolean delete = device.delete();
+        
+//        Listening example
+        device.listening();
+        device.socket.on("data", new Emitter.Listener() {
+
+            @Override
+            public void call(Object... result) {
+//                The method call will run when new data is inserted at the api
+//                the result will be the object "result"
+            }
+        });
     }
 }

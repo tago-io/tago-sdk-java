@@ -1,10 +1,14 @@
 package tago;
 
-import domain.DeleteDataResult;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import domain.FindDataCountResult;
-import domain.FindDataResult;
-import domain.InsertDataResult;
+import domain.DataResult;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,10 +25,14 @@ public class Device {
 
     String API_TAGO = "https://api.tago.io/";
     String URL = API_TAGO + "data";
+    String REALTIME_URL = "https://realtime.tago.io/";
     HttpHeaders headers;
     RestTemplate restTemplate;
+    public Socket socket;
+    String token;
 
     public Device(String token) {
+        this.token = token;
         headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("Device-Token", token);
@@ -34,9 +42,9 @@ public class Device {
                 .add(new MappingJackson2HttpMessageConverter());
     }
 
-    public InsertDataResult insert(Data data) {
+    public DataResult insert(Data data) {
         HttpEntity<Data> request = new HttpEntity<Data>(data, headers);
-        return restTemplate.postForObject(URL, request, InsertDataResult.class);
+        return restTemplate.postForObject(URL, request, DataResult.class);
     }
 
     public List<Data> find(String key, String type) {
@@ -45,11 +53,11 @@ public class Device {
 
         HttpEntity entity = new HttpEntity(headers);
 
-        HttpEntity<FindDataResult> response = restTemplate
+        HttpEntity<DataResult> response = restTemplate
                 .exchange(builder.build().encode().toUriString(),
                         HttpMethod.GET,
                         entity,
-                        FindDataResult.class);
+                        DataResult.class);
 
         return response.getBody().result;
     }
@@ -86,36 +94,51 @@ public class Device {
 
         HttpEntity entity = new HttpEntity(headers);
 
-        HttpEntity<DeleteDataResult> response = restTemplate
+        HttpEntity<DataResult> response = restTemplate
                 .exchange(builder.build().encode().toUriString(),
                         HttpMethod.DELETE,
                         entity,
-                        DeleteDataResult.class);
+                        DataResult.class);
 
         return response.getBody().status;
     }
 
-    public InsertDataResult update(String id, Data data) {
+    public DataResult update(String id, Data data) {
         return updateDevice(id, data);
     }
     
-    public InsertDataResult update(Data data) {
+    public DataResult update(Data data) {
         return updateDevice(null, data);
     }
     
-    private InsertDataResult updateDevice(String id, Data data){
+    private DataResult updateDevice(String id, Data data){
         HttpEntity entity = new HttpEntity(data, headers);
 
-        HttpEntity<InsertDataResult> response = restTemplate
+        HttpEntity<DataResult> response = restTemplate
                 .exchange(URL,
                         HttpMethod.PUT,
                         entity,
-                        InsertDataResult.class, id);
+                        DataResult.class, id);
 
         return response.getBody();
     }
 
-    public InsertDataResult listening(Data data) throws Exception {
-        throw new Exception("Not Implemented yet");
+    public void listening() {
+        if(this.socket == null || !this.socket.connected()){
+            try {
+                this.socket = IO.socket(REALTIME_URL);
+                socket.connect();
+                
+                socket.on("connect", new Emitter.Listener() {
+                    
+                    @Override
+                    public void call(Object... os) {
+                        socket.emit("register", token);
+                    }
+                });
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
