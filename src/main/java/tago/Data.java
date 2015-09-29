@@ -22,6 +22,8 @@ public class Data {
     public String origin_type;
     public String serie;
     public String metadata;
+    
+    public String result;
 
     @JsonIgnore
     public String getJson(){
