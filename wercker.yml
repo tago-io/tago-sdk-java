@@ -1,0 +1,15 @@
+box: maven
+build:
+    steps:
+        - script:
+            name: install dependencies
+            code: mvn compile
+        - script:
+            name: run tests
+            code: mvn test
+        - script:
+            name: environment info
+            code: |-
+                java -version
+                echo "\n"
+                mvn --version
