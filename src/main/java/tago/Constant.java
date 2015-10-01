@@ -1,8 +1,5 @@
 package tago;
-/**
- *
- * @author Roberto Canoff
- */
+
 public class Constant {
 
     public static class Find {

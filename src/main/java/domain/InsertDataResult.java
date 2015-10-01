@@ -1,7 +1,7 @@
 package domain;
 
-public class FindDataCountResult {
+public class InsertDataResult {
     public Boolean status;
-    public Integer result;
+    public String result;
     public String message;
 }

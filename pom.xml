@@ -11,31 +11,6 @@
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
     
-<!--    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.2</version>
-                <configuration>
-                     see http://jira.codehaus.org/browse/MNG-5346 
-                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
-                </configuration>
-
-                <executions>
-                    <execution>
-                        <id>mojo-descriptor</id>
-                        <goals>
-                            <goal>descriptor</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>-->
-    
-    <!--<name>Tago-io Java Plugin</name>-->
-    
     <dependencies>
         <dependency>
             <groupId>com.github.nkzawa</groupId>
@@ -58,6 +33,12 @@
             <artifactId>gson</artifactId>
             <version>2.3.1</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,8 +1,5 @@
 package tago;
-/**
- *
- * @author Roberto Canoff
- */
+
 public class Location {
 
     public String type;
