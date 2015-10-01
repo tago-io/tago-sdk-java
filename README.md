@@ -2,7 +2,9 @@
 Official Java lib for Tago
 
 # Code Status
-Work in progress
+[![wercker status](https://app.wercker.com/status/ce550090c4e12182442fb0af7ed7928b/m "wercker status")](https://app.wercker.com/project/bykey/ce550090c4e12182442fb0af7ed7928b)
+
+Work in progress...
 
 # Documentation
 ## Usage
@@ -57,11 +59,11 @@ device.update(data);
 ### Listening new data by Socket
 
 ```java
- // the method device.listening() activates the socket connection that 
- // listens to the api value changes 
+ // the method device.listening() activates the socket connection that
+ // listens to the api value changes
  device.listening();
 
- // to start listening to the api you need to use the method socket.on 
+ // to start listening to the api you need to use the method socket.on
  device.socket.on("data", new Emitter.Listener() {
 
      @Override
