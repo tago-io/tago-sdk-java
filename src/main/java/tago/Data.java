@@ -18,7 +18,7 @@ public class Data {
     public String bucket;
     public String origin_type;
     public String serie;
-    public String metadata;
+    public Metadata metadata;
     
     public String result;
 

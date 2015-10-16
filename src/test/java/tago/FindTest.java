@@ -1,6 +1,8 @@
 package tago;
 
 import domain.FindDataResult;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,6 +36,20 @@ public class FindTest {
         System.out.println("find");
         Device device = new Device(null);
         FindDataResult fdr = device.find(Constant.Find.FILTER, Constant.Filter.TYPE);
+
+        assertEquals(true, fdr.status);
+    }   
+    
+    @Test
+    public void testFind_map_args() {
+        System.out.println("find_map_args");
+        Device device = new Device(null);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("qty", "1000");
+        params.put("variable", "entregador");
+        params.put("value", "Motoboy Roberto");
+        params.put("_cache", "false");
+        FindDataResult fdr = device.find(params);
 
         assertEquals(true, fdr.status);
     }   

@@ -5,10 +5,15 @@ import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import domain.FindDataCountResult;
 import domain.DeleteDataResult;
+import domain.DeviceInfoResult;
 import domain.FindDataResult;
 import domain.InsertDataResult;
+import domain.StatusResult;
 import domain.UpdateDataResult;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.http.HttpEntity;
@@ -22,7 +27,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class Device {
 
     String API_TAGO;
-    String URL;
+    String URL_DATA;
+    String URL_INFO;
+    String URL_STATUS;
     String REALTIME_URL;
     HttpHeaders headers;
     RestTemplate restTemplate;
@@ -54,8 +61,11 @@ public class Device {
         if (this.API_TAGO == null) {
             this.API_TAGO = "https://api.tago.io/";
         }
+
+        URL_DATA = API_TAGO + "data";
+        URL_INFO = API_TAGO + "info";
+        URL_STATUS = API_TAGO + "status";
         
-        URL = API_TAGO + "data";
         this.REALTIME_URL = System.getenv("TAGO_REALTIME");
         if (this.REALTIME_URL == null) {
             this.REALTIME_URL = "https://realtime.tago.io/";
@@ -64,17 +74,17 @@ public class Device {
 
     public InsertDataResult insert(Data data) {
         HttpEntity<Data> request = new HttpEntity<Data>(data, headers);
-        return restTemplate.postForObject(URL, request, InsertDataResult.class);
+        return restTemplate.postForObject(URL_DATA, request, InsertDataResult.class);
     }
 
     public FindDataResult find(String key, String type) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_DATA)
                 .queryParam(key, type);
 
         HttpEntity entity = new HttpEntity(headers);
 
         HttpEntity<FindDataResult> response = restTemplate
-                .exchange(builder.build().encode().toUriString(),
+                .exchange(builder.build().toUriString(),
                         HttpMethod.GET,
                         entity,
                         FindDataResult.class);
@@ -82,14 +92,65 @@ public class Device {
         return response.getBody();
     }
 
+    public DeviceInfoResult info() {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_INFO);
+
+        HttpEntity entity = new HttpEntity(headers);
+
+        HttpEntity<DeviceInfoResult> response = restTemplate
+                .exchange(builder.build().toUriString(),
+                        HttpMethod.GET,
+                        entity,
+                        DeviceInfoResult.class);
+
+        return response.getBody();
+    }
+   
+    public StatusResult status() {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_STATUS);
+
+        HttpEntity entity = new HttpEntity(headers);
+
+        HttpEntity<StatusResult> response = restTemplate
+                .exchange(builder.build().toUriString(),
+                        HttpMethod.GET,
+                        entity,
+                        StatusResult.class);
+
+        return response.getBody();
+    }
+
+    public FindDataResult find(Map<String, String> params) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_DATA);
+        for (Map.Entry<String, String> entrySet : params.entrySet()) {
+            try {
+                builder.queryParam(entrySet.getKey(), URLDecoder.decode(entrySet.getValue(), "UTF-8"));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        HttpEntity entity = new HttpEntity(headers);
+        HttpEntity<FindDataResult> response = restTemplate.exchange(builder.build().toUri(),
+                    HttpMethod.GET,
+                    entity,
+                    FindDataResult.class);
+
+        if (response != null) {
+            return response.getBody();
+        }
+
+        return null;
+
+    }
+
     public FindDataCountResult count() {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_DATA)
                 .queryParam(Constant.Find.QUERY, Constant.Query.COUNT);
 
         HttpEntity entity = new HttpEntity(headers);
 
         HttpEntity<FindDataCountResult> response = restTemplate
-                .exchange(builder.build().encode().toUriString(),
+                .exchange(builder.build().toUriString(),
                         HttpMethod.GET,
                         entity,
                         FindDataCountResult.class);
@@ -106,7 +167,7 @@ public class Device {
     }
 
     private DeleteDataResult deleteDevice(String data_ID) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_DATA);
 
         if (data_ID != null) {
             builder.queryParam("data_ID", data_ID);
@@ -115,7 +176,7 @@ public class Device {
         HttpEntity entity = new HttpEntity(headers);
 
         HttpEntity<DeleteDataResult> response = restTemplate
-                .exchange(builder.build().encode().toUriString(),
+                .exchange(builder.build().toUriString(),
                         HttpMethod.DELETE,
                         entity,
                         DeleteDataResult.class);
@@ -135,7 +196,7 @@ public class Device {
         HttpEntity entity = new HttpEntity(data, headers);
 
         HttpEntity<UpdateDataResult> response = restTemplate
-                .exchange(URL,
+                .exchange(URL_DATA,
                         HttpMethod.PUT,
                         entity,
                         UpdateDataResult.class, id);
