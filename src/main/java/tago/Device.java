@@ -68,7 +68,7 @@ public class Device {
         
         this.REALTIME_URL = System.getenv("TAGO_REALTIME");
         if (this.REALTIME_URL == null) {
-            this.REALTIME_URL = "https://api.tago.io:86/";
+            this.REALTIME_URL = "wss://realtime.tago.io/";
         }
     }
 
