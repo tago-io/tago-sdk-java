@@ -46,8 +46,8 @@ public class FindTest {
         Device device = new Device(null);
         Map<String, String> params = new HashMap<String, String>();
         params.put("qty", "1000");
-        params.put("variable", "entregador");
-        params.put("value", "Motoboy Roberto");
+        params.put("variable", "apiteste");
+        params.put("value", "25");
         params.put("_cache", "false");
         FindDataResult fdr = device.find(params);
 

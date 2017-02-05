@@ -1,5 +1,7 @@
 package tago;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -16,6 +18,7 @@ import java.net.URLDecoder;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -68,11 +71,11 @@ public class Device {
         
         this.REALTIME_URL = System.getenv("TAGO_REALTIME");
         if (this.REALTIME_URL == null) {
-            this.REALTIME_URL = "wss://realtime.tago.io/";
+            this.REALTIME_URL = "https://realtime.tago.io/";
         }
     }
 
-    public InsertDataResult insert(Data data) {
+    public InsertDataResult insert(Data data) throws JsonProcessingException {
         HttpEntity<Data> request = new HttpEntity<Data>(data, headers);
         return restTemplate.postForObject(URL_DATA, request, InsertDataResult.class);
     }
@@ -129,6 +132,7 @@ public class Device {
                 Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
         HttpEntity entity = new HttpEntity(headers);
         HttpEntity<FindDataResult> response = restTemplate.exchange(builder.build().toUri(),
                     HttpMethod.GET,

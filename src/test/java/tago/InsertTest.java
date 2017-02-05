@@ -1,5 +1,6 @@
 package tago;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import domain.InsertDataResult;
 import java.util.Date;
 import org.junit.After;
@@ -31,12 +32,12 @@ public class InsertTest {
     }
 
     @Test
-    public void testInsert() {
+    public void testInsert() throws JsonProcessingException {
         System.out.println("insert");
         Device device = new Device(null);
 
         Data data = new Data();
-        data.variable = "API-Teste";
+        data.variable = "APITeste";
         data.unit = "%";
         data.value = "25";
         data.type = "integer";
