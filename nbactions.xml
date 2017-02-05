@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>test</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>Env.TAGO_TOKEN_DEVICE=783c0a20-5ef4-11e5-b9c0-5346110eed9a</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>
