@@ -75,4 +75,6 @@ device.update(data);
 ```
 
 # License
-Tago lib client for Node.js is released under the [Copyright License](https://github.com/tago-io/tago-nodejs/blob/master/LICENSE.md).
+
+Tago SDK for Java is released under the [Apache-2.0 License](https://github.com/tago-io/tago-sdk-java/blob/master/LICENSE.md).
+
