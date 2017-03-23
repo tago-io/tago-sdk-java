@@ -151,21 +151,6 @@ public class Device {
 
     }
 
-//    public FindDataCountResult count() {
-//        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(api_url)
-//                .queryParam(Constant.Find.QUERY, Constant.Query.COUNT);
-//
-//        HttpEntity entity = new HttpEntity(headers);
-//
-//        HttpEntity<FindDataCountResult> response = restTemplate
-//                .exchange(builder.build().toUriString(),
-//                        HttpMethod.GET,
-//                        entity,
-//                        FindDataCountResult.class);
-//
-//        return response.getBody();
-//    }
-
     public DeleteDataResult remove() {
         return deleteDevice(null);
     }

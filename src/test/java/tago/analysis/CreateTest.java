@@ -2,9 +2,7 @@ package tago.analysis;
 
 import domain.AnalysisCreateResult;
 import java.util.ArrayList;
-import javafx.scene.control.Accordion;
 import model.account.Account;
-import model.analysis.Analysis;
 import model.analysis.KeyVal;
 import org.junit.After;
 import org.junit.AfterClass;
