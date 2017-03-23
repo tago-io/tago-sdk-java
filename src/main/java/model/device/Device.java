@@ -1,4 +1,4 @@
-package tago;
+package model.device;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.nkzawa.emitter.Emitter;
@@ -11,10 +11,13 @@ import domain.InsertDataResult;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Config;
+import model.device.Bucket;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import tago.Data;
 
 public class Device {
 
@@ -31,6 +35,18 @@ public class Device {
     private HttpHeaders headers;
     private RestTemplate restTemplate;
     private Config config;
+    
+    public String id;
+    public String name;
+    public String description;
+    public Boolean visible;
+    public Boolean active;
+    public Bucket bucket;
+    public Date last_access;
+    public Long request_limit;
+    public Date created_at;
+    public Date updated_at;
+    public List<String> configuration_params;
     
     public Socket socket;
 
@@ -182,7 +198,7 @@ public class Device {
     public void listening() {
         if (this.socket == null || !this.socket.connected()) {
             try {
-                this.socket = IO.socket(realtime_url);
+                this.socket = IO.socket(realtime_url + "/data");
                 socket.connect();
 
                 socket.on("connect", new Emitter.Listener() {

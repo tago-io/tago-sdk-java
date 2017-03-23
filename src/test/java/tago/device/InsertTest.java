@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import tago.Data;
-import tago.Device;
+import model.device.Device;
 import tago.Location;
 import static org.junit.Assert.assertEquals;
 

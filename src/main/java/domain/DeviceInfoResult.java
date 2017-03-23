@@ -1,7 +1,7 @@
 package domain;
 
-import model.device.DeviceInfo;
+import model.device.Device;
 
 public class DeviceInfoResult extends Result{
-    public DeviceInfo result;
+    public Device result;
 }
