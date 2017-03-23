@@ -1,7 +1,5 @@
 package domain;
 
-public class InsertDataResult {
-    public Boolean status;
+public class InsertDataResult extends Result {
     public String result;
-    public String message;
 }

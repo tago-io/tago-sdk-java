@@ -1,7 +1,5 @@
 package domain;
 
-public class FindDataCountResult {
-    public Boolean status;
+public class FindDataCountResult extends Result{
     public Integer result;
-    public String message;
 }

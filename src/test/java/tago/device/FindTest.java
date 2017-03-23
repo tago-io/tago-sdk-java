@@ -1,4 +1,4 @@
-package tago;
+package tago.device;
 
 import domain.FindDataResult;
 import java.util.HashMap;
@@ -8,6 +8,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tago.Constant;
+import tago.Device;
 import static org.junit.Assert.*;
 
 public class FindTest {
@@ -34,7 +36,7 @@ public class FindTest {
     @Test
     public void testFind() {
         System.out.println("find");
-        Device device = new Device(null);
+        Device device = new Device();
         FindDataResult fdr = device.find(Constant.Find.FILTER, Constant.Filter.TYPE);
 
         assertEquals(true, fdr.status);
@@ -43,7 +45,7 @@ public class FindTest {
     @Test
     public void testFind_map_args() {
         System.out.println("find_map_args");
-        Device device = new Device(null);
+        Device device = new Device();
         Map<String, String> params = new HashMap<String, String>();
         params.put("qty", "1000");
         params.put("variable", "apiteste");

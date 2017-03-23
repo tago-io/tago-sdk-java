@@ -2,8 +2,6 @@ package domain;
 
 import tago.Status;
 
-public class StatusResult {
-    public Boolean status;
+public class StatusResult  extends Result{
     public Status result;
-    public String message;
 }

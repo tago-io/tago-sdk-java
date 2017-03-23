@@ -1,7 +1,5 @@
 package domain;
 
-public class UpdateDataResult {
-    public Boolean status;
+public class UpdateDataResult extends Result{
     public String result;
-    public String message;
 }

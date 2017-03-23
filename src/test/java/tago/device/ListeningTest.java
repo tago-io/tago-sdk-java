@@ -1,4 +1,4 @@
-package tago;
+package tago.device;
 
 import com.github.nkzawa.emitter.Emitter;
 import org.junit.After;
@@ -6,6 +6,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tago.Device;
 import static org.junit.Assert.*;
 
 public class ListeningTest {
@@ -33,7 +34,7 @@ public class ListeningTest {
     public void testListening() {
         System.out.println("listening");
 
-        Device device = new Device(null);
+        Device device = new Device();
 
         device.listening();
         device.socket.on("data", new Emitter.Listener() {

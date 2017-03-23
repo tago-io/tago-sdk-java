@@ -1,10 +1,11 @@
-package tago;
+package tago.device;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tago.Device;
 import static org.junit.Assert.*;
 
 public class DeleteTest {
@@ -31,8 +32,8 @@ public class DeleteTest {
     @Test
     public void testDelete_0args() {
         System.out.println("delete_no_args");
-        Device device = new Device(null);
-        Boolean delete = device.delete().status;
+        Device device = new Device();
+        Boolean delete = device.remove().status;
 
         assertEquals(true, (delete == true || delete == false));
     }
@@ -41,7 +42,7 @@ public class DeleteTest {
     public void testDelete_String() {
         System.out.println("delete");
         Device device = new Device(null);
-        Boolean delete = device.delete("").status;
+        Boolean delete = device.remove("").status;
 
         assertEquals(true, (delete == true || delete == false));
     }

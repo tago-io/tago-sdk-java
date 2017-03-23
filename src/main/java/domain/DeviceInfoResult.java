@@ -1,9 +1,7 @@
 package domain;
 
-import tago.DeviceInfo;
+import model.device.DeviceInfo;
 
-public class DeviceInfoResult {
-    public Boolean status;
+public class DeviceInfoResult extends Result{
     public DeviceInfo result;
-    public String message;
 }

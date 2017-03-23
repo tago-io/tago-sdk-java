@@ -1,6 +1,7 @@
-package tago;
+package tago.account;
 
-import domain.FindDataCountResult;
+import domain.AccountProfileResult;
+import model.account.Account;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -8,9 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class CountTest {
+public class ListProfileTest {
     
-    public CountTest() {
+    public ListProfileTest() {
     }
     
     @BeforeClass
@@ -30,11 +31,12 @@ public class CountTest {
     }
 
     @Test
-    public void testCount() {
-        System.out.println("count");
-        Device device = new Device(null);
-        FindDataCountResult fdcr = device.count();
+    public void testProfileList() {
+        System.out.println("Account profile list");
+        Account a = new Account();
+        
+        AccountProfileResult apr = a.profileList();
 
-        assertEquals(fdcr.status, true);
+        assertEquals(apr.status, true);
     }
 }

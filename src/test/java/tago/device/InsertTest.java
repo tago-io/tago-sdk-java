@@ -1,4 +1,4 @@
-package tago;
+package tago.device;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import domain.InsertDataResult;
@@ -8,6 +8,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tago.Data;
+import tago.Device;
+import tago.Location;
 import static org.junit.Assert.assertEquals;
 
 public class InsertTest {
@@ -34,7 +37,7 @@ public class InsertTest {
     @Test
     public void testInsert() throws JsonProcessingException {
         System.out.println("insert");
-        Device device = new Device(null);
+        Device device = new Device();
 
         Data data = new Data();
         data.variable = "APITeste";

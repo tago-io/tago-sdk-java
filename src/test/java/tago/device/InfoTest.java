@@ -1,17 +1,17 @@
-package tago;
+package tago.device;
 
-import com.google.gson.Gson;
-import domain.StatusResult;
+import domain.DeviceInfoResult;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tago.Device;
 import static org.junit.Assert.*;
 
-public class StatusTest {
+public class InfoTest {
     
-    public StatusTest() {
+    public InfoTest() {
     }
     
     @BeforeClass
@@ -32,10 +32,10 @@ public class StatusTest {
 
     @Test
     public void testInfo() {
-        System.out.println("status");
-        Device device = new Device(null);
-        StatusResult dir = device.status();
-        System.out.println(new Gson().toJson(dir.result));
+        System.out.println("Info");
+        Device device = new Device();
+        DeviceInfoResult dir = device.info();
+
         assertEquals(true, dir.status);
     }   
 }

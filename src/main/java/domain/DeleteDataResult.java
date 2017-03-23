@@ -1,7 +1,5 @@
 package domain;
 
-public class DeleteDataResult {
-    public Boolean status;
+public class DeleteDataResult extends Result{
     public String result;
-    public String message;
 }
