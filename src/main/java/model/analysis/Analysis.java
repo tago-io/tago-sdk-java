@@ -1,20 +1,13 @@
 package model.analysis;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import domain.AnalysisCreateResult;
 import domain.AnalysisResult;
 import domain.AnalysisTokenResult;
 import domain.StringResult;
-import java.io.File;
-import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Config;
-import model.device.Device;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -47,8 +40,6 @@ public class Analysis {
     public Date created_at;
     public Date updated_at;
     public List<String> console;
-
-    public Socket socket;
 
     public Analysis(String token) {
         loadConfig();
@@ -98,19 +89,21 @@ public class Analysis {
         return response.getBody();
     }
 
-    public AnalysisCreateResult create(Analysis analysis) {
+    public AnalysisCreateResult create() {
         String url = api_url + "/analysis";
         HttpMethod method = HttpMethod.POST;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
-        HttpEntity entity = new HttpEntity(analysis, headers);
+        HttpEntity entity = new HttpEntity(Analysis.this, headers);
 
         HttpEntity<AnalysisCreateResult> response = restTemplate
                 .exchange(builder.build().toUriString(),
                         method,
                         entity,
                         AnalysisCreateResult.class);
+        
+        id = response.getBody().result.id;
 
         return response.getBody();
     }
@@ -131,9 +124,9 @@ public class Analysis {
 
         return response.getBody();
     }
-
-    public StringResult delete(String analysisId) {
-        String url = api_url + "/analysis/" + analysisId;
+    
+    private StringResult deleteAnalysis(String id){
+        String url = api_url + "/analysis/" + id;
         HttpMethod method = HttpMethod.DELETE;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -149,8 +142,25 @@ public class Analysis {
         return response.getBody();
     }
 
-    public AnalysisCreateResult info(String analysisId) {
-        String url = api_url + "/analysis/" + analysisId;
+    public StringResult delete() {
+        return deleteAnalysis(id);
+    }
+    
+    
+    public StringResult delete(String id) {
+        return deleteAnalysis(id);
+    }
+    
+    public AnalysisCreateResult info(){
+        return infoAnalysis(id);
+    }
+        
+    public AnalysisCreateResult info(String id){
+        return infoAnalysis(id);
+    }
+
+    private AnalysisCreateResult infoAnalysis(String id) {
+        String url = api_url + "/analysis/" + id;
         HttpMethod method = HttpMethod.GET;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -166,8 +176,16 @@ public class Analysis {
         return response.getBody();
     }
 
-    public StringResult run(String analysisId) {
-        String url = api_url + "/analysis/" + analysisId + "/run";
+    public StringResult run(){
+        return runAnalysis(id);
+    }
+    
+    public StringResult run(String id){
+        return runAnalysis(id);
+    }
+    
+    private StringResult runAnalysis(String id) {
+        String url = api_url + "/analysis/" + id + "/run";
         HttpMethod method = HttpMethod.GET;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -183,33 +201,10 @@ public class Analysis {
         return response.getBody();
     }
 
-    public void listening(String analysisId) {
-        if (this.socket == null || !this.socket.connected()) {
-            try {
-                this.socket = IO.socket(realtime_url + "/" + analysisId);
-                socket.connect();
-
-                socket.on("connect", new Emitter.Listener() {
-
-                    @Override
-                    public void call(Object... os) {
-                        socket.emit("register", token);
-                    }
-                });
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    public void stopListening(String analysisId) {
-        if (this.socket != null || this.socket.connected()) {
-            this.socket.off(analysisId);
-        }
-    }
     
-     public AnalysisTokenResult tokenGenerate(String analysisId) {
-        String url = api_url + "/analysis/" + analysisId + "/token";
+    
+     public AnalysisTokenResult tokenGenerate() {
+        String url = api_url + "/analysis/" + id + "/token";
         HttpMethod method = HttpMethod.GET;
         
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -225,8 +220,8 @@ public class Analysis {
         return response.getBody();
     }
      
-     public StringResult uploadScript(String analysisId, AnalysisUpload upload) {
-        String url = api_url + "/analysis/" + analysisId + "/upload";
+     public StringResult uploadScript(AnalysisUpload upload) {
+        String url = api_url + "/analysis/" + id + "/upload";
         HttpMethod method = HttpMethod.POST;
         
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);

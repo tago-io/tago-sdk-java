@@ -1,10 +1,9 @@
 package tago.analysis;
 
 import domain.AnalysisCreateResult;
-import domain.AnalysisResult;
-import domain.FindDataCountResult;
 import domain.StringResult;
 import java.util.ArrayList;
+import model.account.Account;
 import model.analysis.Analysis;
 import model.analysis.KeyVal;
 import org.junit.After;
@@ -38,34 +37,33 @@ public class DeleteTest {
     @Test
     public void test() {
         System.out.println("Analysis delete");
-        Analysis an = new Analysis();
-        Analysis analysis = new Analysis();
-        analysis.name = "JAVA SDK test Analysis";
-        analysis.description = "Created by JAVA SDK test Analysis";
-        analysis.interval = "1 day";
-        analysis.active = true;
+        Account account = new Account();
+        account.analysis.name = "JAVA SDK test Analysis";
+        account.analysis.description = "Created by JAVA SDK test Analysis";
+        account.analysis.interval = "1 day";
+        account.analysis.active = true;
         
-        analysis.tags = new ArrayList<>();
+        account.analysis.tags = new ArrayList<>();
         KeyVal kv = new KeyVal();
         kv.key = "var1";
         kv.value = "var1Value";
-        analysis.tags.add(kv);
+        account.analysis.tags.add(kv);
         kv = new KeyVal();
         kv.key = "var2";
         kv.value = "var2Value";
-        analysis.tags.add(kv);
-        analysis.variables = new ArrayList<>();
+        account.analysis.tags.add(kv);
+        account.analysis.variables = new ArrayList<>();
         kv = new KeyVal();
         kv.key = "env1";
         kv.value = "env1Value";
-        analysis.variables.add(kv);
+        account.analysis.variables.add(kv);
         kv = new KeyVal();
         kv.key = "env2";
         kv.value = "env2Value";
-        analysis.variables.add(kv);
+        account.analysis.variables.add(kv);
         
-        AnalysisCreateResult acr = an.create(analysis);
-        StringResult dr = an.delete(acr.result.id);
+        account.analysis.create();
+        StringResult dr = account.analysis.delete();
 
         assertEquals(dr.status, true);
     }

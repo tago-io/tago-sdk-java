@@ -8,6 +8,7 @@ import domain.CreateTokenResult;
 import domain.TokenResult;
 import java.util.Date;
 import model.Config;
+import model.analysis.Analysis;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class Account {
 
-    private String token;
+    public String token;
     private String api_url;
     private HttpHeaders headers;
     private RestTemplate restTemplate;
@@ -39,15 +40,18 @@ public class Account {
     public Date last_login;
     public String phone;
     public Long request_limit;
+    public Analysis analysis;
 
     public Account(String token) {
         loadConfig();
         setToken(token);
+        analysis = new Analysis(token);
     }
 
     public Account() {
         loadConfig();
-         setToken(System.getenv("ACCOUNT_TOKEN"));
+        setToken(System.getenv("ACCOUNT_TOKEN"));
+        analysis = new Analysis(token);
     }
     
     public String getToken() {

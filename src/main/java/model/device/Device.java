@@ -84,7 +84,7 @@ public class Device {
                 .add(new MappingJackson2HttpMessageConverter());
     }
 
-     public InsertDataResult insert(Data data) throws JsonProcessingException {
+     public InsertDataResult insert(Data data) {
          String url = api_url + "/data";
         HttpEntity<Data> request = new HttpEntity<Data>(data, headers);
         return restTemplate.postForObject(url, request, InsertDataResult.class);

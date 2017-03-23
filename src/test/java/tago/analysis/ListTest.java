@@ -2,6 +2,7 @@ package tago.analysis;
 
 import domain.AnalysisResult;
 import domain.FindDataCountResult;
+import model.account.Account;
 import model.analysis.Analysis;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -34,8 +35,8 @@ public class ListTest {
     @Test
     public void test() {
         System.out.println("Analysis list");
-        Analysis an = new Analysis();
-        AnalysisResult ar = an.list();
+        Account account = new Account();
+        AnalysisResult ar = account.analysis.list();
 
         assertEquals(ar.status, true);
     }
