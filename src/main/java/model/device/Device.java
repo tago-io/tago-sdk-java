@@ -1,5 +1,6 @@
 package model.device;
 
+import model.bucket.Bucket;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;

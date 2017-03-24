@@ -10,6 +10,7 @@ import java.util.Date;
 import model.TagoModel;
 import model.action.Action;
 import model.analysis.Analysis;
+import model.bucket.Bucket;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -30,17 +31,22 @@ public class Account extends TagoModel{
     public Long request_limit;
     public Analysis analysis;
     public Action action;
+    public Bucket bucket;
 
     public Account(String token) {
         super(token);
-        analysis = new Analysis(token);
-        action = new Action(token);
+        createClasses(token);
     }
 
     public Account() {
         super(System.getenv("ACCOUNT_TOKEN"));
+        createClasses(token);
+    }
+    
+    private void createClasses(String token){
         analysis = new Analysis(token);
         action = new Action(token);
+        bucket = new Bucket(token);
     }
 
     public AccountInfoResult info() {
