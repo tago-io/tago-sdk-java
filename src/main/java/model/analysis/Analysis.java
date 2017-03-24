@@ -1,29 +1,16 @@
 package model.analysis;
 
-import com.github.nkzawa.socketio.client.Socket;
 import domain.AnalysisCreateResult;
 import domain.AnalysisResult;
 import domain.AnalysisTokenResult;
 import domain.StringResult;
-import java.util.Date;
 import java.util.List;
-import model.Config;
+import model.TagoModel;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class Analysis {
-
-    private String token;
-    private String api_url;
-    private String realtime_url;
-    private HttpHeaders headers;
-    private RestTemplate restTemplate;
-    private Config config;
+public class Analysis extends TagoModel {
 
     public String last_run;
     public String file_name;
@@ -37,39 +24,14 @@ public class Analysis {
     public Boolean active;
     public String locked_at;
     public String language;
-    public Date created_at;
-    public Date updated_at;
     public List<String> console;
 
     public Analysis(String token) {
-        loadConfig();
-        setToken(token);
+        super(token);
     }
 
     public Analysis() {
-        loadConfig();
-        setToken(System.getenv("ACCOUNT_TOKEN"));
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-        headers.add("Device-Token", token);
-    }
-
-    private void loadConfig() {
-        config = new Config();
-        api_url = config.app_url;
-        realtime_url = config.realtime_url;
-        headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters()
-                .add(new MappingJackson2HttpMessageConverter());
+        super(System.getenv("ACCOUNT_TOKEN"));
     }
 
     public AnalysisResult list() {
@@ -102,7 +64,7 @@ public class Analysis {
                         method,
                         entity,
                         AnalysisCreateResult.class);
-        
+
         id = response.getBody().result.id;
 
         return response.getBody();
@@ -124,8 +86,8 @@ public class Analysis {
 
         return response.getBody();
     }
-    
-    private StringResult deleteAnalysis(String id){
+
+    private StringResult deleteAnalysis(String id) {
         String url = api_url + "/analysis/" + id;
         HttpMethod method = HttpMethod.DELETE;
 
@@ -145,17 +107,16 @@ public class Analysis {
     public StringResult delete() {
         return deleteAnalysis(id);
     }
-    
-    
+
     public StringResult delete(String id) {
         return deleteAnalysis(id);
     }
-    
-    public AnalysisCreateResult info(){
+
+    public AnalysisCreateResult info() {
         return infoAnalysis(id);
     }
-        
-    public AnalysisCreateResult info(String id){
+
+    public AnalysisCreateResult info(String id) {
         return infoAnalysis(id);
     }
 
@@ -176,14 +137,14 @@ public class Analysis {
         return response.getBody();
     }
 
-    public StringResult run(){
+    public StringResult run() {
         return runAnalysis(id);
     }
-    
-    public StringResult run(String id){
+
+    public StringResult run(String id) {
         return runAnalysis(id);
     }
-    
+
     private StringResult runAnalysis(String id) {
         String url = api_url + "/analysis/" + id + "/run";
         HttpMethod method = HttpMethod.GET;
@@ -201,12 +162,10 @@ public class Analysis {
         return response.getBody();
     }
 
-    
-    
-     public AnalysisTokenResult tokenGenerate() {
+    public AnalysisTokenResult tokenGenerate() {
         String url = api_url + "/analysis/" + id + "/token";
         HttpMethod method = HttpMethod.GET;
-        
+
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
         HttpEntity entity = new HttpEntity(headers);
@@ -219,13 +178,13 @@ public class Analysis {
 
         return response.getBody();
     }
-     
-     public StringResult uploadScript(AnalysisUpload upload) {
+
+    public StringResult uploadScript(AnalysisUpload upload) {
         String url = api_url + "/analysis/" + id + "/upload";
         HttpMethod method = HttpMethod.POST;
-        
+
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-        
+
         HttpEntity entity = new HttpEntity(upload, headers);
 
         HttpEntity<StringResult> response = restTemplate
@@ -236,7 +195,4 @@ public class Analysis {
 
         return response.getBody();
     }
-     
-     
-
 }

@@ -1,7 +1,7 @@
 package domain;
 
 import java.util.List;
-import tago.Data;
+import model.device.Data;
 
 public class DataResult extends Result{
     public List<Data> result;

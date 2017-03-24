@@ -7,24 +7,14 @@ import domain.AccountStatisticsResult;
 import domain.CreateTokenResult;
 import domain.TokenResult;
 import java.util.Date;
-import model.Config;
+import model.TagoModel;
+import model.action.Action;
 import model.analysis.Analysis;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class Account {
-
-    public String token;
-    private String api_url;
-    private HttpHeaders headers;
-    private RestTemplate restTemplate;
-    private Config config;
-
+public class Account extends TagoModel{
     public String id;
     public String name;
     public String email;
@@ -34,45 +24,23 @@ public class Account {
     public Boolean active;
     public String plan;
     public String type;
-    public Date created_at;
-    public Date updated_at;
     public String view_mode;
     public Date last_login;
     public String phone;
     public Long request_limit;
     public Analysis analysis;
+    public Action action;
 
     public Account(String token) {
-        loadConfig();
-        setToken(token);
+        super(token);
         analysis = new Analysis(token);
+        action = new Action(token);
     }
 
     public Account() {
-        loadConfig();
-        setToken(System.getenv("ACCOUNT_TOKEN"));
+        super(System.getenv("ACCOUNT_TOKEN"));
         analysis = new Analysis(token);
-    }
-    
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-        headers.add("Device-Token", token);
-    }
-    
-    private void loadConfig() {
-        config = new Config();
-        api_url = config.app_url;
-        headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        
-
-        restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters()
-                .add(new MappingJackson2HttpMessageConverter());
+        action = new Action(token);
     }
 
     public AccountInfoResult info() {

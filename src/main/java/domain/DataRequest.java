@@ -1,6 +1,6 @@
 package domain;
 
-import tago.Data;
+import model.device.Data;
 
 public class DataRequest  extends Result{
     public Data device;

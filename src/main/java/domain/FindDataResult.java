@@ -2,7 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import tago.Data;
+import model.device.Data;
 
 public class FindDataResult extends Result{
     public List<Data> result;
