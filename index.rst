@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Tago's SDK for JavaScript Documentation
+Tago's SDK for Java Documentation
 =======================================
 
 .. toctree::
