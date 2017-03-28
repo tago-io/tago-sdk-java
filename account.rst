@@ -13,21 +13,21 @@ Get all account information
 | *.info()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const myacc   = new Account('0e479db0-tag0-11e6-8888-790d555b633a');
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
-    myacc.info()
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+
+.. code-block:: java
+
+    Account account = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.info();
 
 
 .tokenList
@@ -38,21 +38,22 @@ Get all tokens from the account
 | *.tokenList()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const myacc   = new Account('0e479db0-tag0-11e6-8888-790d555b633a');
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
-    myacc.tokenList()
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+
+.. code-block:: java
+
+    Account account = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.tokenList();
+
 
 
 .tokenCreate
@@ -65,25 +66,30 @@ Generate and retrieve a new token for the account
 | **Arguments**
 | *data(object) options for the new token.*
 |   *\*name(string)*: *a name for the token;*
+|   *\*password(string)*: *password of the account;*
 |   *\*expire_time(string)*: *Time when token should expire. It will be randomly generated if not included.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const myacc   = new Account('0e479db0-tag0-11e6-8888-790d555b633a');
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
-    myacc.tokenCreate({"name":"My First Token", "expire_time": New Date()})
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+.. code-block:: java
 
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+    
+    Object data = new Object(){
+        public String name = "My First Token";
+        public String expire_time = "never";
+        public String password = "pass";
+    };
+    Result res = myacc.tokenCreate(data);
+    
 .tokenDelete
 ************
 Delete current token of the account
@@ -92,21 +98,20 @@ Delete current token of the account
 | *.tokenDelete()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const myacc   = new Account('0e479db0-tag0-11e6-8888-790d555b633a');
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
-    myacc.tokenDelete()
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.tokenDelete();
 
 
 Devices
@@ -121,21 +126,20 @@ Retrieve a list with all devices from account
 | *.list()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accdevices   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').devices;
-    
-    accdevices.list()
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.device.list();
 
 
 .create
@@ -155,36 +159,49 @@ Generate and retrieve a new device for the account
 |   *\*tags(array)*: *An array of objects with key and value. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|   *\*token*: *token for the generated device;*
-|   *\*id*: *id of the new device;*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accdevices   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').devices;
-    var data = {
-        "name":"My first device",
-        "description":"Creating my first device",
-        "active":true,
-        "visible":true,
-        "tags": [
-            {"key": "client", "value": "John"}
-        ]
-        "configuration_params": [
-            {"sent": false, "key": "check_rate", "value": 600}
-            {"sent": false, "key": "measure_time", "value": 0}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    final List<Object> confParams = new ArrayList<>();       
+        
+    confParams.add(new Object(){
+        public Boolean sent = false;
+        public String key = "check_rate";
+        public String value = "600";
+    });
+    
+        confParams.add(new Object(){
+        public Boolean sent = false;
+        public String key = "measure_time";
+        public String value = "0";
+    });
+        
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object(){
+        public String key = "client";
+        public String value = "John";
+    });
+    
+    Object data = new Object(){
+        public String name = "My first device";
+        public String description = "Creating my first device";
+        public Boolean active = true;
+        public Boolean visible = true;
+        public List<Object> configuration_params = confParams;
+        public List<Object> tags = tagParams;
     };
-
-    accdevices.create(data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    
+    Result res = myacc.device.create(data);
 
 
 .edit
@@ -204,30 +221,34 @@ Modify any property of the device.
 |   *\*tags(array)*: *An array of objects with key and value. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdevices = new Account('0e479db0-tag0-11e6-8888-790d555b633a').devices;
-    var data = {
-        "name":"New name for my device",
-        "description":"In this way I can change the description too",
-        "active":false,
-        "visible":true,
-        "tags": [
-            {"key": "client", "value": "Mark"}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object(){
+        public String key = "client";
+        public String value = "Mark";
+    });
+    
+    Object data = new Object(){
+        public String name = "New name for my device";
+        public String description = "In this way I can change the description too";
+        public Boolean active = false;
+        public Boolean visible = true;
+        public List<Object> tags = tagParams;
     };
-
-    accdevices.edit('576dc932415f403531fd2cf6', data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    
+    Result res = myacc.device.edit("58da9eac20c52d000e786748", data);
 
 
 .info
@@ -241,22 +262,20 @@ Get information about the device
 | *id(string) reference ID of the device.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdevices = new Account('0e479db0-tag0-11e6-8888-790d555b633a').devices;
-    
-    accdevices.info('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.device.info("58da9eac20c52d000e786748");
 
 .delete
 =======
@@ -269,22 +288,20 @@ Delete device for the account
 | *id(string) reference ID of the device.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdevices = new Account('0e479db0-tag0-11e6-8888-790d555b633a').devices;
-    
-    accdevices.delete('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.device.delete("58da9eac20c52d000e786748");
 
 .tokenList
 ==========
@@ -297,21 +314,20 @@ Retrieve a list of all tokens of the device
 | *id(string) reference ID of the device.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdevices = new Account('0e479db0-tag0-11e6-8888-790d555b633a').devices;
-    
-    accdevices.tokenList('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.device.tokenList("58da9eac20c52d000e786748");
 
 .tokenCreate
 ============
@@ -328,21 +344,27 @@ Generate and retrieve a new token for the device
 |   *\*permission(string)*: *Token permission, should be `write`, `read` or `full`.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdevices = new Account('0e479db0-tag0-11e6-8888-790d555b633a').devices;
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
-    accdevices.tokenCreate({"name":"My First Token", "expire_time": "never", "permission":"full"})
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Object data = new Object(){
+        public String name = "My First Token";
+        public String expire_time = "never";
+        public String permission = "full";
+        
+    };
+
+    Result res = myacc.device.tokenCreate("58daa3c44cd1310033b4fcaf", data);
 
 .tokenDelete
 ============
@@ -355,21 +377,20 @@ Delete an token of the Device
 | *token(string) reference token.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdevices = new Account('0e479db0-tag0-11e6-8888-790d555b633a').devices;
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
-    accdevices.tokenDelete('298d17f0-7061-11e6-ab66-b174d8afb89d')
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.device.tokenDelete("a021a360-21ab-4318-87c0-6cd584a20a3f");
 
 Buckets
 *******
@@ -383,21 +404,20 @@ Retrieve a list with all buckets from account
 | *.list()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accbuckets   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').buckets;
-    
-    accbuckets.list()
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+     Result res = myacc.bucket.list();
 
 
 .create
@@ -415,30 +435,33 @@ Generate and retrieve a new bucket for the account
 |   *\*tags(array)*: *An array of objects with key and value. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|   *\*id*: *id of the new bucket;*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accbuckets   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').buckets;
-    var data = {
-        "name":"My first bucket",
-        "description":"Creating my first bucket",
-        "visible":true,
-        "tags": [
-            {"key": "client", "value": "Francisco"}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object(){
+        public String key = "client";
+        public String value = "Francisco";
+    });
+
+    Object data = new Object(){
+        public String name = "My first bucket";
+        public String description = "Creating my first bucket";
+        public Boolean visible = true;
+        public List<Object> tags = tagParams;
     };
-
-    accbuckets.create(data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    
+    Result res = myacc.bucket.create(data);
 
 
 .edit
@@ -457,29 +480,33 @@ Modify any property of the bucket.
 |   *\*tags(array)*: *An array of objects with key and value. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accbuckets = new Account('0e479db0-tag0-11e6-8888-790d555b633a').buckets;
-    var data = {
-        "name":"New name for my bucket",
-        "description":"This way I can change the description too",
-        "visible":true,
-        "tags": [
-            {"key": "client", "value": "Leonardo"}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object() {
+        public String key = "client";
+        public String value = "Leonardo";
+    });
+
+    Object data = new Object() {
+        public String name = "New name for my bucket";
+        public String description = "This way I can change the description too";
+        public Boolean visible = true;
+        public List<Object> tags = tagParams;
     };
 
-    accbuckets.edit('576dc932415f403531fd2cf6', data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result res = myacc.bucket.edit("58daaac929d6e4000ee13d0e", data);
 
 
 .info
@@ -493,21 +520,20 @@ Get information about the bucket
 | *id(string) reference ID of the bucket.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accbuckets = new Account('0e479db0-tag0-11e6-8888-790d555b633a').buckets;
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
     
-    accbuckets.info('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result res = myacc.bucket.info("58daaac929d6e4000ee13d0e");
 
 
 .delete
@@ -521,21 +547,20 @@ Delete bucket for the account
 | *id(string) reference ID of the bucket.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accbuckets = new Account('0e479db0-tag0-11e6-8888-790d555b633a').buckets;
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
     
-    accbuckets.delete('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result res = myacc.bucket.delete("58daaac929d6e4000ee13d0e");
 
 
 Actions
@@ -550,21 +575,20 @@ Retrieve a list with all actions from account
 | *.list()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accactions   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').actions;
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
     
-    accactions.list()
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result res = myacc.action.list();
 
 
 .create
@@ -602,44 +626,46 @@ Generate and retrieve a new action for the account
 |   *\*subject(string)*: *Subject of the e-mail.(optional)*
 |
 | **Returns**
-| *(Promise)*
-|   *\*id*: *id of the new action;*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accactions   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').actions;
-    var data = {
-        "name": "a simple action",
-        "description": "trigger when the variable test is higher than 2, and reset it when is less than 2",
-        "when_reset_bucket": "571920982c452fa00c6af660",
-        "when_reset_origin": "571920a5cc7d43a00c642ca1",
-        "when_reset_variable": "test",
-        "when_reset_condition": "<",
-        "when_reset_value": "2",
-        "when_set_bucket": "571920982c452fa00c6af660",
-        "when_set_origin": "571920a5cc7d43a00c642ca1",
-        "when_set_variable": "test",
-        "when_set_condition": ">",
-        "when_set_value": "2",
-        "type": "script",
-        "script": "577d4c457ee399ef1a6e6cf6",
-        "lock": false,
-        "active": true,
-        "tags": [
-            {"key":"Trigger", "value":"2"}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object() {
+        public String key = "Trigger";
+        public String value = "2";
+    });
+
+    Object data = new Object() {
+        public String name = "a simple action";
+        public String description = "trigger when the variable test is higher than 2, and reset it when is less than 2";
+        public String when_reset_bucket = "571920982c452fa00c6af660";
+        public String when_reset_origin = "571920a5cc7d43a00c642ca1";
+        public String when_reset_variable = "test";
+        public String when_reset_condition = "<";
+        public String when_reset_value = "2";
+        public String when_set_bucket = "571920982c452fa00c6af660";
+        public String when_set_origin = "571920a5cc7d43a00c642ca1";
+        public String when_set_variable = "test";
+        public String when_set_condition = ">";
+        public String when_set_value = "2";
+        public String type = "script";
+        public String script = "577d4c457ee399ef1a6e6cf6";
+        public Boolean lock = false;
+        public Boolean active = true;
+        public List<Object> tags = tagParams;
     };
-
-    accactions.create(data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
-
+    
+    Result res = myacc.action.create(data);
 
 .edit
 =====
@@ -653,29 +679,33 @@ Modify any property of the action.
 | *data(object) properties to be changed. See `.create`_ to more reference..*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accactions = new Account('0e479db0-tag0-11e6-8888-790d555b633a').actions;
-    var data = {
-        "name":"New name for my action",
-        "description":"In this way I can change the description too",
-        "visible":true,
-        "tags": [
-            {"key": "client", "value": "Mark"}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object() {
+        public String key = "client";
+        public String value = "Mark";
+    });
+
+    Object data = new Object() {
+        public String name = "New name for my action";
+        public String description = "In this way I can change the description too";
+        public Boolean visible = true;
+        public List<Object> tags = tagParams;
     };
-
-    accactions.edit('576dc932415f403531fd2cf6', data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    
+    Result res = myacc.action.edit("58daafb04cd1310033b516e2", data);
 
 
 .info
@@ -689,22 +719,20 @@ Get information about the action
 | *id(string) reference ID of the action.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accactions = new Account('0e479db0-tag0-11e6-8888-790d555b633a').actions;
-    
-    accactions.info('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.action.info("58daafb04cd1310033b516e2");
 
 .delete
 =======
@@ -717,21 +745,20 @@ Delete action for the account
 | *id(string) reference ID of the action.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accactions = new Account('0e479db0-tag0-11e6-8888-790d555b633a').actions;
-    
-    accactions.delete('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.action.delete("58daafb04cd1310033b516e2");
 
 
 Analysis
@@ -746,22 +773,20 @@ Retrieve a list with all analysis from account
 | *.list()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accanalysis   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').analysis;
-    
-    accanalysis.list()
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.analysis.list();
 
 .create
 =======
@@ -780,36 +805,41 @@ Generate and retrieve a new analysis for the account
 |   *\*tags(array)*: *An array of objects with key and value. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|   *\*token*: *token for the generated analysis;*
-|   *\*id*: *id of the new analysis;*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accanalysis   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').analysis;
-    var data = {
-        "name":"My first analysis",
-        "description":"Creating my first analysis",
-        "active":true,
-        "interval": '1 minute',
-        "variables": [
-            {"key": "max_battery", "value": "3100"}
-        ],
-        "tags": [
-            {"key": "client", "value": "Mark"}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    final List<Object> varParams = new ArrayList<>();
+    varParams.add(new Object() {
+        public String key = "max_battery";
+        public String value = "3100";
+    });
+    
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object() {
+        public String key = "client";
+        public String value = "Mark";
+    });
+
+    Object data = new Object() {
+        public String name = "My first analysis";
+        public String description = "Creating my first analysis";
+        public Boolean active = true;
+        public String interval = "1 minute";
+        public List<Object> variables = varParams;
+        public List<Object> tags = tagParams;
     };
-
-    accanalysis.create(data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
-
+    
+    Result res = myacc.analysis.create(data);
 
 .edit
 =====
@@ -829,34 +859,41 @@ Modify any property of the analysis.
 |   *\*tags(array)*: *An array of objects with key and value. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accanalysis = new Account('0e479db0-tag0-11e6-8888-790d555b633a').analysis;
-    var data = {
-        "name":"New name for my analysis",
-        "description":"In this way I can change the description too",
-        "active":false,
-        "interval": '2 minutes',
-        "variables": [
-            {"key": "max_battery", "value": "3000"}
-        ],
-        "tags": [
-            {"key": "client", "value": "Mark"}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    final List<Object> varParams = new ArrayList<>();
+    varParams.add(new Object() {
+        public String key = "max_battery";
+        public String value = "3000";
+    });
+    
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object() {
+        public String key = "client";
+        public String value = "Mark";
+    });
+
+    Object data = new Object() {
+        public String name = "New name for my analysis";
+        public String description = "In this way I can change the description too";
+        public Boolean active = false;
+        public String interval = "2 minutes";
+        public List<Object> variables = varParams;
+        public List<Object> tags = tagParams;
     };
-
-    accanalysis.edit('576dc932415f403531fd2cf6', data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
-
+    
+    Result res = myacc.analysis.edit("58d406eae69ebf000e6edfed", data);
 
 .info
 =====
@@ -869,22 +906,20 @@ Get information about the analysis
 | *id(string) reference ID of the analysis.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accanalysis = new Account('0e479db0-tag0-11e6-8888-790d555b633a').analysis;
-    
-    accanalysis.info('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.analysis.info("58d406eae69ebf000e6edfed");
 
 .delete
 =======
@@ -897,22 +932,20 @@ Delete analysis for the account
 | *id(string) reference ID of the analysis.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accanalysis = new Account('0e479db0-tag0-11e6-8888-790d555b633a').analysis;
-    
-    accanalysis.delete('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.analysis.delete("58d406eae69ebf000e6edfed");
 
 .run
 =======
@@ -925,21 +958,24 @@ Force Analysis to run immediately
 | *id(string) reference ID of the analysis.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accanalysis = new Account('0e479db0-tag0-11e6-8888-790d555b633a').analysis;
-    
-    accanalysis.run('576dc932415f403531fd2cf6')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Object scope = new Object(){
+
+    };
+
+    Result res = myacc.analysis.run("58d406eae69ebf000e6edfed", scope);
 
 Dashboards
 **********
@@ -953,21 +989,20 @@ Retrieve a list with all dashboards from account
 | *.list()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accdashboards   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').dashboards;
-    
-    accdashboards.list()
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.dashboard.list();
 
 
 .create
@@ -989,32 +1024,42 @@ Generate and retrieve a new dashboard for the account
 |   *\*tags(array)*: *An array of objects with key and value. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|   *\*token*: *token for the generated dashboard;*
-|   *\*id*: *id of the new dashboard;*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account = require('tago/account');
-    const accdashboards   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').dashboards;
-    var data = {
-        "label":"My first dashboard",
-        "arrangement": [
-            {"widget_id": "577c28d269d2861f1b2e93b8", "x":0, "y":0, "width":2, "height":3 }
-        ],
-        "tags": [
-            {"key": "client", "value": "Mark"}
-        ]
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+   final List<Object> arrParams = new ArrayList<>();
+
+    arrParams.add(new Object() {
+        public String widget_id = "577c28d269d2861f1b2e93b8";
+        public Integer x = 0;
+        public Integer y = 0;
+        public Integer width = 2;
+        public Integer height = 3;
+    });
+
+    final List<Object> tagParams = new ArrayList<>();
+    tagParams.add(new Object() {
+        public String key = "client";
+        public String value = "Mark";
+    });
+
+    Object data = new Object() {
+        public String label = "My first dashboard";
+        public List<Object> arrangement = arrParams;
+        public List<Object> tags = tagParams;
     };
 
-    accdashboards.create(data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result res = myacc.dashboard.create(data);
 
 
 .edit
@@ -1037,25 +1082,25 @@ Modify any property of the dashboards.
 |   *\*tags(array)*: *An array of objects with key and value. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdashboards = new Account('0e479db0-tag0-11e6-8888-790d555b633a').dashboards;
-    var data = {
-        "label":"New name for my dashboards",
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Object data = new Object() {
+        public String label = "New name for my dashboard";
     };
 
-    accdashboards.edit('877c28d269d2861f1b2e96b8', data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
-
+    
+    Result res = myacc.dashboard.edit("58dac53e20c52d000e78b4d2", data);
 
 .info
 =====
@@ -1068,21 +1113,20 @@ Get information about the dashboards
 | *id(string) reference ID of the dashboards.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdashboards = new Account('0e479db0-tag0-11e6-8888-790d555b633a').dashboards;
-    
-    accdashboards.info('877c28d269d2861f1b2e96b8')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.dashboard.info("58dac53e20c52d000e78b4d2");
 
 
 .delete
@@ -1096,69 +1140,22 @@ Delete dashboards for the account
 | *id(string) reference ID of the dashboards.*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Account    = require('tago/account');
-    const accdashboards = new Account('0e479db0-tag0-11e6-8888-790d555b633a').dashboards;
-    
-    accdashboards.delete('877c28d269d2861f1b2e96b8')
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+.. code-block:: java
+
+    Account myacc = new Account("7c16da11-2101-4ea3-9568-7249115d73f3");
+
+    Result res = myacc.dashboard.delete("58dac53e20c52d000e78b4d2");
 
 
-Widgets
-********
-Inside dashboards, you need widgets to show and control information inside buckets. Every widget have their data slighty different from each other, to know how do they work
-
-.create
-=======
-Generate and retrieve a new dashboard for the account
-
-| **Syntax**
-| *.create(/data/)*
-|
-| **Arguments**
-| *data(object) options for the new dashboard.*
-|   *\*label(string)*: *a label for the dashboards;*
-|   *\*arrangement(array)*: *array of objects with arrangement of the widget inside the dashboard. (optional)*
-|       *\*widget_id(string)*: *id of the widget*
-|       *\*x(number)*: *position x of the widget. 1 to 4;*
-|       *\*y(number)*: *position y of the widget. 1 to 20*
-|       *\*width(number)*: *width of the widget. 1 to 4*
-|       *\*height(number)*: *height of the widget. 1 to 20*
-|   *\*tags(array)*: *An array of objects with key and value. (optional)*
-|
-| **Returns**
-| *(Promise)*
-|   *\*token*: *token for the generated dashboard;*
-|   *\*id*: *id of the new dashboard;*
-|
-
-.. code-block:: javascript
-
-    const Account = require('tago/account');
-    const accdashboards   = new Account('0e479db0-tag0-11e6-8888-790d555b633a').dashboards;
-    var data = {
-        "label":"My first dashboard",
-        "arrangement": [
-            {"widget_id": "577c28d269d2861f1b2e93b8", "x":0, "y":0, "width":2, "height":3 }
-        ],
-        "tags": [
-            {"key": "client", "value": "Mark"}
-        ]
-    };
-
-    accdashboards.create(data)
-        .then((result) => { 
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+#Widgets
+#********
+#Inside dashboards, you need widgets to show and control information inside buckets. Every widget have their data slighty different from each other, to know how do they work
