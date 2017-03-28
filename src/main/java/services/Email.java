@@ -8,8 +8,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class Email extends TagoModel {
 
-    public Email(String accountToken) {
-        super(accountToken);
+    public Email(String analysisToken) {
+        super(analysisToken);
     }
 
     public Result send(final String paramTo,

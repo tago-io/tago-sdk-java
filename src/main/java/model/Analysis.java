@@ -1,17 +1,11 @@
 package model;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
 import domain.Result;
-import java.net.URISyntaxException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class Analysis extends TagoModel {
-
-    private Socket socket;
     
     public Analysis(String accountToken) {
         super(accountToken);
@@ -137,34 +131,6 @@ public class Analysis extends TagoModel {
                         Result.class);
 
         return response.getBody();
-    }
-    
-    public void listening(Emitter.Listener listener, final String token) {
-        if (this.socket == null || !this.socket.connected()) {
-            try {
-                this.socket = IO.socket(config.realtime_url);
-                
-                socket.on("run:analysis", listener);
-
-                socket.on("connect", new Emitter.Listener() {
-
-                    @Override
-                    public void call(Object... os) {
-                        socket.emit("register:analysis", token);
-                    }
-                });
-                
-                socket.connect();
-            } catch (URISyntaxException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    public void stopListening(String analysisId) {
-        if (this.socket != null || this.socket.connected()) {
-            this.socket.off(analysisId);
-        }
     }
 
     public Result uploadScript(String analysisId, Object file) {

@@ -8,8 +8,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class Sms extends TagoModel {
 
-    public Sms(String accountToken) {
-        super(accountToken);
+    public Sms(String analysisToken) {
+        super(analysisToken);
     }
 
     public Result send(final String paramTo, final String paramMessage) {

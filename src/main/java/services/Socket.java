@@ -8,8 +8,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class Socket extends TagoModel {
 
-    public Socket(String accountToken) {
-        super(accountToken);
+    public Socket(String analysisToken) {
+        super(analysisToken);
     }
 
     public Result send(final String BucketId, final String dataEntry) {

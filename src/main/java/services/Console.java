@@ -9,8 +9,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class Console extends TagoModel {
 
-    public Console(String accountToken) {
-        super(accountToken);
+    public Console(String analysisToken) {
+        super(analysisToken);
     }
 
     public Result log(final String paramMessage, final Long paramTimestamp) {
