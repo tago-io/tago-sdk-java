@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import tago.Config;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -12,9 +12,6 @@ public abstract class TagoModel {
     protected HttpHeaders headers;
     protected RestTemplate restTemplate;
     protected Config config;
-    
-    public Date created_at;
-    public Date updated_at;
     
     protected void loadConfig() {
         config = new Config();
