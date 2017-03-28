@@ -12,16 +12,13 @@ public class Bucket extends TagoModel {
         super(accountToken);
     }
 
-    public Result list(Object devices) {
+    public Result list() {
         String url = api_url + "/bucket";
-        if (devices != null) {
-            url += "?devices=true";
-        }
         HttpMethod method = HttpMethod.GET;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
-        HttpEntity entity = new HttpEntity(devices, headers);
+        HttpEntity entity = new HttpEntity(headers);
 
         HttpEntity<Result> response = restTemplate
                 .exchange(builder.build().toUriString(),

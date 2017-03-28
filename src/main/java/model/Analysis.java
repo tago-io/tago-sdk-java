@@ -17,10 +17,7 @@ public class Analysis extends TagoModel {
         super(accountToken);
     }
     
-    public Analysis(){
-        super("");
-    }
-        
+       
     public Result list() {
         String url = api_url + "/analysis";
         HttpMethod method = HttpMethod.GET;

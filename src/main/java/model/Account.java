@@ -7,8 +7,19 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class Account extends TagoModel{
     
+    public Device device;
+    public Bucket bucket;
+    public Action action;
+    public Analysis analysis;
+    public Dashboard dashboard;
+    
     public Account(String token) {
         super(token);
+        device = new Device(token);
+        bucket = new Bucket(token);
+        action = new Action(token);
+        analysis = new Analysis(token);
+        dashboard = new Dashboard(token);
     }
 
     public Result info() {
