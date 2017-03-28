@@ -29,6 +29,11 @@ public class Analysis extends TagoModel {
     public Analysis(String token) {
         super(token);
     }
+    
+    
+    public Analysis(Context context, Scope scope, String token) {
+        super(token);
+    }
 
     public Analysis() {
         super(System.getenv("ACCOUNT_TOKEN"));
