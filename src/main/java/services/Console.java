@@ -18,8 +18,8 @@ public class Console extends TagoModel {
 
         Object data = new Object() {
             public String message = paramMessage;
-            public Long timestamp = 
-                    (paramTimestamp != null ? paramTimestamp : tempTimestamp);
+            public Long timestamp
+                    = (paramTimestamp != null ? paramTimestamp : tempTimestamp);
         };
         String url = api_url + "/analysis/services/console/send";
         HttpMethod method = HttpMethod.POST;
