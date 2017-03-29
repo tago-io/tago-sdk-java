@@ -64,34 +64,8 @@ You always have the option to run your script from your own machine or from Tago
 Be sure to set your analysis configuration with the option to run the script from "external". 
 And finally, get the analysis token from the same configuration screen, and put it on the second parameter when calling  **new Analysis**. Check out this example:
 
-`module.exports = new Analysis(myanalysis, 'c89f0d50-38e2-11e6-966e-b94d760acc7d');`
+myanalysis.listening(listener, "d43b1695-d8a8-44f5-ae8b-512a7ecffdb9")
 
-Tago-Builder and Using Another Packages
-***************************************
-When you are programming, it can be useful to use another packages inside your code; Or you may want to organize your project using *require* and *subfoulders*.
-
-| Tago is friendly with some packages:
-| * **moment** and **moment-timezone**
-| * **lodash**
-| * **co**
-| * **async**
-| * **axios**
-| * **crypto**
-| * **Tago** itself
-|
-| So you don't need to generate a build if you are using **only** them.
-|
-
-Also, Tago only accepts one single .js file when uploading your script to our servers. ago provides a builder CLI that can build your entire project and generate a single .js file with the whole code. You can access the repository `clicking here <https://www.npmjs.com/package/tago-builder>`_
-
-To use our Tago-Builder, follow the following steps:
-
-1. **Type** in your terminal **`npm install -g tago-builder`**
-2. **Wait** it for the installation to be completed
-3. **Type** in your terminal **`tago-builder 'my script'.js 'new name'.tago.js** *(the last parameter is optional)*.
-4. **Upload** the generated **'my script'.tago.js** file to **Tago**.
-
-If everything is okay, a new file called 'my script'.tago.js will be generated. Now you can upload this file to Tago!
 
 Services
 ********
@@ -103,7 +77,7 @@ When setting up a service, you need to pass an analysis-token. For convenience, 
 .. code-block:: java
 
     Analysis myanalysis = new Analysis("d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
-    
+
     myanalysis.sms.send(data);
 
 sms

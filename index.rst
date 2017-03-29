@@ -12,6 +12,5 @@ Tago's SDK for Java Documentation
    Sign up for free! <https://admin.tago.io/signup>
    device
    analysis
-   extra
    account
-   Forum <https://community.tago.io/>
+   Slack/Community <http://community.tago.io/>
