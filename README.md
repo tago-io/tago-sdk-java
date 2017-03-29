@@ -38,4 +38,4 @@ Result res = device.insert(data);
 
 # License
 
-Tago SDK for Java is released under the [Apache-2.0 License](https://github.com/tago-io/tago-sdk-js/blob/master/LICENSE.md).
+Tago SDK for Java is released under the [Apache-2.0 License](https://github.com/tago-io/tago-sdk-java/blob/master/LICENSE.md).
