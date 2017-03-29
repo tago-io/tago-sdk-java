@@ -3,13 +3,9 @@ package model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import domain.Result;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.Map;
 import java.util.logging.Level;
@@ -76,17 +72,16 @@ public class Device extends TagoModel {
         return response.getBody();
     }
 
-    public Result insert(Object data) {
-        String url = api_url + "/data";
-        HttpEntity<Object> request = new HttpEntity<Object>(data, headers);
-        return restTemplate.postForObject(url, request, Result.class);
-    }
-
-    public Result find(String key, String type) {
-        String url = api_url + "/data";
+    public Result info(String deviceId) {
+        String url;
+        if (deviceId == null) {
+            url = api_url + "/device";
+        } else {
+            url = api_url + "/device/" + deviceId;
+        }
         HttpMethod method = HttpMethod.GET;
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam(key, type);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
         HttpEntity entity = new HttpEntity(headers);
 
@@ -97,6 +92,12 @@ public class Device extends TagoModel {
                         Result.class);
 
         return response.getBody();
+    }
+
+    public Result insert(Object data) {
+        String url = api_url + "/data";
+        HttpEntity<Object> request = new HttpEntity<Object>(data, headers);
+        return restTemplate.postForObject(url, request, Result.class);
     }
 
     public Result delete(String deviceId) {
@@ -138,11 +139,11 @@ public class Device extends TagoModel {
         HttpMethod method = HttpMethod.POST;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-        
-        ObjectMapper mapper = new ObjectMapper(); 
+
+        ObjectMapper mapper = new ObjectMapper();
         JsonNode data = mapper.convertValue(paramData, JsonNode.class);
 
-        ((ObjectNode)data).put("device", deviceId);
+        ((ObjectNode) data).put("device", deviceId);
 
         HttpEntity entity = new HttpEntity(data, headers);
 
@@ -154,13 +155,13 @@ public class Device extends TagoModel {
 
         return response.getBody();
     }
-    
+
     public Result tokenDelete(String tokenId) {
         String url = api_url + "/device/token/" + tokenId;
         HttpMethod method = HttpMethod.DELETE;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-        
+
         HttpEntity entity = new HttpEntity(headers);
 
         HttpEntity<Result> response = restTemplate
@@ -172,20 +173,13 @@ public class Device extends TagoModel {
         return response.getBody();
     }
 
-    public Result find(Map<String, String> params) {
+    public Result find(Object filter) {
         String url = api_url + "/data";
         HttpMethod method = HttpMethod.GET;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-        for (Map.Entry<String, String> entrySet : params.entrySet()) {
-            try {
-                builder.queryParam(entrySet.getKey(), URLDecoder.decode(entrySet.getValue(), "UTF-8"));
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-        HttpEntity entity = new HttpEntity(headers);
+        HttpEntity entity = new HttpEntity(filter, headers);
         HttpEntity<Result> response = restTemplate.exchange(builder.build().toUri(),
                 method,
                 entity,
@@ -199,15 +193,7 @@ public class Device extends TagoModel {
 
     }
 
-    public Result remove() {
-        return deleteDevice(null);
-    }
-
-    public Result remove(String data_ID) {
-        return deleteDevice(data_ID);
-    }
-
-    private Result deleteDevice(String data_ID) {
+    public Result remove(String data_ID, final Integer paramQty) {
         String url = api_url + "/data";
         HttpMethod method = HttpMethod.DELETE;
 
@@ -215,6 +201,17 @@ public class Device extends TagoModel {
 
         if (data_ID != null) {
             builder.queryParam("data_ID", data_ID);
+        }
+
+        Object body;
+        if (paramQty == null) {
+            body = new Object() {
+                public Integer qty = 1;
+            };
+        } else {
+            body = new Object() {
+                public Integer qty = paramQty;
+            };
         }
 
         HttpEntity entity = new HttpEntity(headers);

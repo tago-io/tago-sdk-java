@@ -12,16 +12,7 @@ public class Email extends TagoModel {
         super(analysisToken);
     }
 
-    public Result send(final String paramTo,
-            final String paramSubject, final String paramMessage,
-            final String paramFrom) {
-
-        Object data = new Object() {
-            public String to = paramTo;
-            public String subject = paramSubject;
-            public String message = paramMessage;
-            public String from = paramFrom;
-        };
+    public Result send(Object data) {
         String url = api_url + "/analysis/services/email/send";
         HttpMethod method = HttpMethod.POST;
 

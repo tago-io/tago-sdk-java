@@ -12,12 +12,7 @@ public class Sms extends TagoModel {
         super(analysisToken);
     }
 
-    public Result send(final String paramTo, final String paramMessage) {
-
-        Object data = new Object() {
-            public String to = paramTo;
-            public String message = paramMessage;
-        };
+    public Result send(Object data) {
         String url = api_url + "/analysis/services/sms/send";
         HttpMethod method = HttpMethod.POST;
 
