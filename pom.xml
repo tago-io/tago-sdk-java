@@ -7,12 +7,12 @@
     <packaging>jar</packaging>
     <name>Tago Java SDK</name>
     <description>SDK for the tago api</description>
-    <url>https://github.com/tago-io/tago-sdk-java</url>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <version>9</version>
     </parent>
     
     <properties>
@@ -42,7 +42,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-                    <pushChanges>false</pushChanges>
+                    <pushChanges>true</pushChanges>
                 </configuration>
             </plugin>
         </plugins>
