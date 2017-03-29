@@ -1,7 +1,3 @@
-# Tago - Java Lib
-Official Java lib for Tago
-
-# Code Status
 [![wercker status](https://app.wercker.com/status/ce550090c4e12182442fb0af7ed7928b/s/master "wercker status")](https://app.wercker.com/project/byKey/ce550090c4e12182442fb0af7ed7928b)
 
 # Description
