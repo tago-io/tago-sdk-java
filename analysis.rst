@@ -12,26 +12,25 @@ Through analysis, it is possible to insert any calculation and manage your data 
 To setup an analysis, you first need a analysis token. That can be retrieved from the `admin analysis section. <http://docs.tago.io/en/latest/analysis.html#setting-up-analysis>`_.
 
 | **Syntax**
-| *new Analysis(/function/, /analysis_token/)*
+| *.listening(listener, "analysis token")*
 |
 | **Arguments**
-| *function(function) a function to be executed when the analysis runs.*
+| *listener a listener to be executed when the analysis runs.*
 | *analysis_token(string) analysis token. Only needed if the script will run remotelly (Optional).*
 |
 
-.. code-block:: javascript
+.. code-block:: java
 
-    'use strict';
-    const Analysis = require('tago/analysis');
-
-    //Main function to be executed when the analysis are called
-    function myanalysis(context, scope) {
-        console.log('my context:', context);
-        console.log('my scope:', scope);
-        //Do anything you want here
-    }
-
-    module.exports = new Analysis(myanalysis, 'c89f0d50-38e2-11e6-966e-b94d760acc7d');
+    Analysis myanalysis = new Analysis();
+        
+    Emitter.Listener listener = new Emitter.Listener() {
+        @Override
+        public void call(Object... context) {
+            //Do anything you want here
+        }
+    };
+    
+    myanalysis.listening(listener, "d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
 
 
 context
@@ -133,28 +132,26 @@ Whenever you need to send a sms, use .send function.
 | *message(string) message to be sent. Use "\n" to breakline. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    'use strict';
-    const Analysis = require('tago/analysis');
-    const Services = require('tago/Services');
-
-    //Main function to be executed when analysis are called
-    function myanalysis(context, scope) {
-        const sms = new Services(context.token).sms;
-
-        const to      = '2693856214';
-        const message = 'Hi! This is a sms example sent from Tago. \nWith a breakline in the sms message.';
-
-        sms.send(to, message).then(console.log).catch(console.log);
-        //Print "Sending";
-
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
     }
 
-    module.exports = new Analysis(myanalysis, 'c89f0d50-38e2-11e6-966e-b94d760acc7d');
+
+.. code-block:: java
+
+    Analysis myanalysis = new Analysis("d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
+
+    Object data = new Object() {
+        public String to = "2693856214";
+        public String message = "'Hi! This is a sms example sent from Tago. \\nWith a breakline in the sms message.";
+    };
+    Result res = myanalysis.sms.send(data);
+
 
 email
 =====
@@ -170,31 +167,29 @@ Whenever you need to send an email, use .send function.
 | **Arguments**
 | *to(string) E-mail address which will receive the email.*
 | *subject(string) Subject of the email;*
-| *message(string) message to be sent. Use "<br>" to breakline.*
+| *message(string) message to be sent.*
 | *from(string) E-mail address for the receiver to reply. Default is tago@tago.io (optional);*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    'use strict';
-    const Analysis = require('tago/analysis');
-    const Services = require('tago/Services');
-
-    //Main function to be executed when the analysis are called
-    function myanalysis(context, scope) {
-        const email = new Services(context.token).email;
-
-        const to      = 'myuser@gmail.com';
-        const subject = 'E-mail example';
-        const message = 'Hi! This is an email example. \nWith a breakline in the email message.';
-        const from    = 'me@gmail.com';
-
-        email.send(to, subject, message, from).then(console.log).catch(console.log);
-        //Print "Sending";
-
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
     }
 
-    module.exports = new Analysis(myanalysis, 'c89f0d50-38e2-11e6-966e-b94d760acc7d');
+
+.. code-block:: java
+
+    Analysis myanalysis = new Analysis("d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
+
+    Object data = new Object() {
+        public String to = "myuser@gmail.com";
+        public String subject = "E-mail example";
+        public String message = "Hi! This is an email example.";
+        public String to = "me@gmail.com";
+    };
+    Result res = myanalysis.email.send(data);
+
