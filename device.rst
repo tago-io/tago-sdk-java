@@ -13,22 +13,21 @@ Get all information from the device
 | *.info()*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Device = require('tago/device');
-    const mydev  = new Device('0e479db0-tag0-11e6-8888-790d555b633a');
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
-    mydev.info()
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
 
+.. code-block:: java
+
+    Device device = new Device("7c16da11-2101-4ea3-9568-7249115d73f3");
+        
+    Result res = device.info("58d5318eabd6a6000e542b95");
 
 .insert
 *******
@@ -47,28 +46,34 @@ Insert a new data into a bucket. You can get more information about what informa
 |   *\*location(object/geojson)*: *a location object or geojson containing lat and lang;*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Device = require('tago/device');
-    const mydev  = new Device('0e479db0-tag0-11e6-8888-790d555b633a');
-    var data = {
-        'variable': 'temperature',
-        'unit'    : 'F',
-        'value'   : 55,
-        'time'    : '2015-11-03 13:44:33',
-        'location': {'lat': 42.2974279, 'lng': -85.628292}
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+
+.. code-block:: java
+
+    Device device = new Device("8aa46f99-3156-4ebd-a275-fdb75c4dccbf");
+
+    final Object loc = new Object() {
+        public Double lat = 42.2974279;
+        public Double lng = -85.628292;
     };
 
-    mydev.insert(data)
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Object data = new Object() {
+        public String variable = "temperature";
+        public String unit = "F";
+        public String value = "55";
+        public String time = "2015-11-03 13:44:33";
+        public Object location = loc;
+    };
+    
+    Result res = device.insert(data);
 
 .find
 *******
@@ -86,28 +91,29 @@ Get a list of data from bucket respecting the query options passed. You can get 
 |   *\*qty(number)*: *Number of data to be retrieved. Default is 15. (optional)*
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Device = require('tago/device');
-    const mydev  = new Device('0e479db0-tag0-11e6-8888-790d555b633a');
-    var filter = {
-        'variable':   'myvar',
-        'query':      'last_value',
-        'end_date':   '2014-12-25 23:33:22',
-        'start_date': '2014-12-20 23:33:22'
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
+
+
+.. code-block:: java
+
+    Device device = new Device("8aa46f99-3156-4ebd-a275-fdb75c4dccbf");
+
+    Object filter = new Object(){
+        public String variable = "myvar";
+        public String query = "last_value";
+        public String end_date = "2014-12-25 23:33:22";
+        public String start_date = "2014-12-20 23:33:22";
     };
     
-    mydev.find(filter)
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
-
+    Result res = device.find(filter);
+    
 
 .remove
 *******
@@ -125,48 +131,55 @@ Remove a data from the bucket. It's possible to remove in three ways:
 | If no parameter is passed, it will automatically remove the last data inserted by this specific device.
 |
 | **Returns**
-| *(Promise)*
-|
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Device = require('tago/device');
-    const mydev   = new Device('0e479db0-tag0-11e6-8888-790d555b633a');
+    Result(){
+      public Boolean status;
+      public String message;
+      public Object result;
+    }
 
-    mydev.remove()
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+
+.. code-block:: java
+
+    Device device = new Device("8aa46f99-3156-4ebd-a275-fdb75c4dccbf");
+
+    Object filter = new Object(){
+        public String variable = "myvar";
+        public String query = "last_value";
+        public String end_date = "2014-12-25 23:33:22";
+        public String start_date = "2014-12-20 23:33:22";
+    };
+    
+    Result res = device.remove(null, null);
 
 or 
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Device = require('tago/device');
-    const mydev   = new Device('0e479db0-tag0-11e6-8888-790d555b633a');
+    Device device = new Device("8aa46f99-3156-4ebd-a275-fdb75c4dccbf");
 
-    mydev.remove('myvariable')
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Object filter = new Object(){
+        public String variable = "myvar";
+        public String query = "last_value";
+        public String end_date = "2014-12-25 23:33:22";
+        public String start_date = "2014-12-20 23:33:22";
+    };
+    
+    Result res = device.remove("myvar", null);
         
 or 
 
-.. code-block:: javascript
+.. code-block:: java
 
-    const Device = require('tago/device');
-    const mydev   = new Device('0e479db0-tag0-11e6-8888-790d555b633a');
+    Device device = new Device("8aa46f99-3156-4ebd-a275-fdb75c4dccbf");
 
-    mydev.remove('577d81ac7ee399ef1a6e98da')
-        .then((result) => {
-            //You can treat the result here
-        })
-        .catch((error) => {
-            //You can treat errors here
-        });
+    Object filter = new Object(){
+        public String variable = "myvar";
+        public String query = "last_value";
+        public String end_date = "2014-12-25 23:33:22";
+        public String start_date = "2014-12-20 23:33:22";
+    };
+    
+    Result res = device.remove("577d81ac7ee399ef1a6e98da", 1);

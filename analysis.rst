@@ -99,20 +99,12 @@ We provide some functions that can greatly help your application. When creating 
 
 When setting up a service, you need to pass an analysis-token. For convenience, the context returns a property token that you can use to setup a service object.
 
-.. code-block:: javascript
 
-    'use strict';
-    const Analysis = require('tago/analysis');
-    const Services = require('tago/Services');
+.. code-block:: java
 
-    //Main function to be executed when the analysis are called
-    function myanalysis(context, scope) {
-        //Setting up a SMS service
-        const sms = new Services(context.token).sms;
-
-    }
-
-    module.exports = new Analysis(myanalysis, 'c89f0d50-38e2-11e6-966e-b94d760acc7d');
+    Analysis myanalysis = new Analysis("d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
+    
+    myanalysis.sms.send(data);
 
 sms
 ===
