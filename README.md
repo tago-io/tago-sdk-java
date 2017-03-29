@@ -2,79 +2,44 @@
 Official Java lib for Tago
 
 # Code Status
-[![wercker status](https://app.wercker.com/status/ce550090c4e12182442fb0af7ed7928b/m "wercker status")](https://app.wercker.com/project/bykey/ce550090c4e12182442fb0af7ed7928b)
+[![wercker status](https://app.wercker.com/status/ce550090c4e12182442fb0af7ed7928b/s/master "wercker status")](https://app.wercker.com/project/byKey/ce550090c4e12182442fb0af7ed7928b)
 
-Work in progress...
+# Description
 
-# Documentation
-## Usage
-### Insert Data
-**.insert(Data);**
+Tago SDK for Java.
 
-```Java
-Device device = new Device("put_your_token_here");
+| what                  | where                    |
+|-----------------------|--------------------------|
+| Tago website          | http://tago.io           |
+| SDK documentation     | http://sdk.java.tago.io    |
+| General documentation | http://docs.tago.io      |
+| Slack / Community     | http://community.tago.io |
 
-//Data to insert
-Data data = new Data();
-        data.variable = "API-Teste";
-        data.unit = "%";
-        data.value = "25";
-        data.type = "text";
-        data.time = new Date();
-        data.location = new Location(40.792673, -98.683232);
+# Installation
 
-device.insert(data);
-```
+# Quick Example
+## Insert Device Data
+``` java
+Device device = new Device("8aa46f99-3156-4ebd-a275-fdb75c4dccbf");
 
-### Find Data
-**.find(String, String);**
+final Object loc = new Object() {
+    public Double lat = 42.2974279;
+    public Double lng = -85.628292;
+};
 
-```java
-// You can check documentation to see all options you can use in query.
-List<Data> dataList = device.find(Constant.Find.FILTER, Constant.Filter.TYPE);
+Object dataToInsert = new Object() {
+    public String variable = "temperature";
+    public String unit = "C";
+    public Integer value = 63;
+    public String time = "2015-11-03 13:44:33";
+    public Object location = loc;
+};
 
-Integer dataCount = device.count();
-```
+Result res = device.insert(data);
 
-### Delete Data
-**.delete(String);**
-
-```java
-
-device.delete("put_the_data_id_here");
-// or
-device.delete(); // Without the ID the last record will be deleted
-```
-
-### Update Data
-**.delete(String, Data);**
-
-```java
-
-device.update("put_tye_data_id_here", data);
-// or
-device.update(data);
-```
-
-### Listening new data by Socket
-
-```java
- // the method device.listening() activates the socket connection that
- // listens to the api value changes
- device.listening();
-
- // to start listening to the api you need to use the method socket.on
- device.socket.on("data", new Emitter.Listener() {
-
-     @Override
-     public void call(Object... result) {
-//      The method call will be triggered when the data is changed at the api
-//      the result will be the object "result"
-     }
- });
+// -> See full documentation at: http://sdk.java.tago.io/
 ```
 
 # License
 
-Tago SDK for Java is released under the [Apache-2.0 License](https://github.com/tago-io/tago-sdk-java/blob/master/LICENSE.md).
-
+Tago SDK for JavaScript in the browser and Node.js is released under the [Apache-2.0 License](https://github.com/tago-io/tago-sdk-js/blob/master/LICENSE.md).
