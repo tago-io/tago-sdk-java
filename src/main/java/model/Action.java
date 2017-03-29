@@ -27,7 +27,7 @@ public class Action extends TagoModel {
 
         return response.getBody();
     }
-    
+
     public Result create(Object data) {
         String url = api_url + "/action";
         HttpMethod method = HttpMethod.POST;
@@ -40,11 +40,10 @@ public class Action extends TagoModel {
                 .exchange(builder.build().toUriString(),
                         method,
                         entity,
-                        Result.class);   
+                        Result.class);
         return response.getBody();
     }
-    
-   
+
     public Result edit(String actionId, Object data) {
         String url = api_url + "/action/" + actionId;
         HttpMethod method = HttpMethod.PUT;
@@ -61,8 +60,7 @@ public class Action extends TagoModel {
 
         return response.getBody();
     }
-    
-   
+
     public Result delete(String actionId) {
         String url = api_url + "/action/" + actionId;
         HttpMethod method = HttpMethod.DELETE;
@@ -79,7 +77,7 @@ public class Action extends TagoModel {
 
         return response.getBody();
     }
-    
+
     public Result info(String actionId) {
         String url = api_url + "/action/" + actionId;
         HttpMethod method = HttpMethod.GET;

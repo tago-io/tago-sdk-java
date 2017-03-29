@@ -5,11 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.nkzawa.socketio.client.Socket;
 import domain.Result;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -179,7 +176,15 @@ public class Device extends TagoModel {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
-        HttpEntity entity = new HttpEntity(filter, headers);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode data = mapper.convertValue(filter, JsonNode.class);
+        Iterator<Map.Entry<String, JsonNode>> nodes = data.fields();
+        while (nodes.hasNext()) {
+            Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
+            builder.queryParam(entry.getKey(), entry.getValue().asText());
+        }
+
+        HttpEntity entity = new HttpEntity(headers);
         HttpEntity<Result> response = restTemplate.exchange(builder.build().toUri(),
                 method,
                 entity,

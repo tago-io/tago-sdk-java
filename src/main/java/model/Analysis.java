@@ -6,12 +6,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class Analysis extends TagoModel {
-    
+
     public Analysis(String accountToken) {
         super(accountToken);
     }
-    
-       
+
     public Result list() {
         String url = api_url + "/analysis";
         HttpMethod method = HttpMethod.GET;
@@ -79,8 +78,6 @@ public class Analysis extends TagoModel {
 
         return response.getBody();
     }
-
-   
 
     public Result info(String analysisId) {
         String url = api_url + "/analysis/" + analysisId;

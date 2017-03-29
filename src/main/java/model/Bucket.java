@@ -188,14 +188,13 @@ public class Bucket extends TagoModel {
 
         return share.remove("bucket", shareId);
     }
-    
-    
+
     public Result exportData(final String paramOutput, final List<Object> buckets) {
         String url = api_url + "/data/export?output=" + paramOutput;
         HttpMethod method = HttpMethod.POST;
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-        
+
         HttpEntity entity = new HttpEntity(buckets, headers);
 
         HttpEntity<Result> response = restTemplate

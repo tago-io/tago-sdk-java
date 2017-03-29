@@ -6,7 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class Share extends TagoModel {
-    
+
     public String id;
     public String email;
     public String permission;
@@ -15,10 +15,6 @@ public class Share extends TagoModel {
 
     public Share(String token) {
         super(token);
-    }
-    
-    public Share(){
-        super(System.getenv("ACCOUNT_TOKEN"));
     }
 
     public Result list(final String paramType, final String paramId) {

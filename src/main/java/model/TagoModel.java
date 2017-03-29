@@ -7,12 +7,13 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 public abstract class TagoModel {
+
     protected String token;
     protected String api_url;
     protected HttpHeaders headers;
     protected RestTemplate restTemplate;
     protected Config config;
-    
+
     protected void loadConfig() {
         config = new Config();
         api_url = config.app_url;
@@ -28,16 +29,14 @@ public abstract class TagoModel {
         loadConfig();
         setToken(token);
     }
-    
+
     public String getToken() {
         return token;
     }
-    
+
     public void setToken(String token) {
         this.token = token;
         headers.add("Device-Token", token);
     }
-    
-    
 
 }

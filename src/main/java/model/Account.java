@@ -5,14 +5,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class Account extends TagoModel{
-    
+public class Account extends TagoModel {
+
     public Device device;
     public Bucket bucket;
     public Action action;
     public Analysis analysis;
     public Dashboard dashboard;
-    
+
     public Account(String token) {
         super(token);
         device = new Device(token);
@@ -38,7 +38,7 @@ public class Account extends TagoModel{
 
         return response.getBody();
     }
-    
+
     public Result statistics(Object date) {
         String url = api_url + "/statistics";
         HttpMethod method = HttpMethod.GET;
@@ -72,7 +72,7 @@ public class Account extends TagoModel{
 
         return response.getBody();
     }
-    
+
     public Result delete() {
         String url = api_url + "/account";
         HttpMethod method = HttpMethod.DELETE;

@@ -60,7 +60,7 @@ public class widget extends TagoModel {
 
         return response.getBody();
     }
-    
+
     public Result info(String dashboardId, String widgetId) {
         String url = api_url + "/dashboard/" + dashboardId + "/widget/" + widgetId;
         HttpMethod method = HttpMethod.GET;
@@ -77,7 +77,7 @@ public class widget extends TagoModel {
 
         return response.getBody();
     }
-    
+
     public Result getData(String dashboardId, String widgetId) {
         String url = api_url + "/data/" + dashboardId + "/" + widgetId;
         HttpMethod method = HttpMethod.GET;
@@ -94,7 +94,7 @@ public class widget extends TagoModel {
 
         return response.getBody();
     }
-    
+
     public Result sendData(String dashboardId, String widgetId, Object data) {
         String url = api_url + "/data/" + dashboardId + "/" + widgetId;
         HttpMethod method = HttpMethod.POST;
