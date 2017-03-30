@@ -1,19 +1,20 @@
-
 import analysis.Analysis;
-import com.github.nkzawa.emitter.Emitter;
+import services.Console;
+import tago.Listener;
 
+public class NewMain {
 
-public class AnalysisExample {
     public static void main(String[] args) {
-        Analysis myanalysis = new Analysis();
+        Analysis myAnalysis = new Analysis();
 
-        Emitter.Listener listener = new Emitter.Listener() {
+        Listener listener = new Listener() {
             @Override
-            public void call(Object... context) {
-                //Do anything you want here
+            public void call(Object object, Console console) {
+                System.out.println("this logs the local console");
+                console.log("this logs the tago analysis console");
             }
         };
 
-        myanalysis.listening(listener, "d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
+        myAnalysis.listening(listener, "d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
     }
 }
