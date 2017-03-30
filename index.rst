@@ -13,4 +13,5 @@ Tago's SDK for Java Documentation
    device
    analysis
    account
+   Source Code <https://github.com/tago-io/tago-sdk-java>
    Slack / Community <http://community.tago.io/>
