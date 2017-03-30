@@ -21,16 +21,17 @@ To setup an analysis, you first need a analysis token. That can be retrieved fro
 
 .. code-block:: java
 
-    Analysis myanalysis = new Analysis();
-        
-    Emitter.Listener listener = new Emitter.Listener() {
+    Analysis myAnalysis = new Analysis();
+
+    Listener listener = new Listener() {
         @Override
-        public void call(Object... context) {
-            //Do anything you want here
+        public void call(Object object, Console console) {
+            System.out.println("this logs the local console");
+            console.log("this logs the tago analysis console");
         }
     };
-    
-    myanalysis.listening(listener, "d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
+
+    myAnalysis.listening(listener, "d43b1695-d8a8-44f5-ae8b-512a7ecffdb9");
 
 
 context
