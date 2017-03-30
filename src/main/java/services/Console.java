@@ -12,6 +12,10 @@ public class Console extends TagoModel {
     public Console(String analysisToken) {
         super(analysisToken);
     }
+    
+    public Result log(final String paramMessage){
+        return log(paramMessage, new Date().getTime()); 
+    }
 
     public Result log(final String paramMessage, final Long paramTimestamp) {
         final Long tempTimestamp = new Date().getTime();

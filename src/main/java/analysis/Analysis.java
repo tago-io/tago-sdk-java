@@ -1,13 +1,10 @@
 package analysis;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import java.net.URISyntaxException;
-import java.util.Date;
 import model.TagoModel;
-import org.json.JSONArray;
 import services.Console;
 import services.Email;
 import services.Sms;
@@ -55,20 +52,9 @@ public class Analysis extends TagoModel {
                 socketIo.on("run:analysis", new Emitter.Listener() {
                     @Override
                     public void call(Object... os) {
-                        try {
-                            ObjectMapper mapper = new ObjectMapper();
-                            JSONArray data = mapper.convertValue(os[0], JSONArray.class);
-                            Console console = new Console(token);
-                            for (int i = 0; i < data.length(); i++) {
-
-                                console.log(data.getJSONObject(i).toString(), new Date().getTime());
-                                System.out.println(data.getJSONObject(i).toString());
-                            }
-
-                        } catch (Exception e) {
-                        }
+                        Console console = new Console(token);
                         if (listener != null) {
-                            listener.call(os);
+                            listener.call(os, console);
                         }
                     }
                 });

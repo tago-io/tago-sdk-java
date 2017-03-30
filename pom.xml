@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <name>Tago Java SDK</name>
     <description>SDK for the tago api</description>
-    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <url>https://github.com/tago-io/tago-sdk-java</url>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
