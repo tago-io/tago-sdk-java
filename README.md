@@ -13,6 +13,23 @@ Tago SDK for Java.
 
 # Installation
 
+Maven
+``` xml
+<dependency>
+    <groupId>io.tago.java</groupId>
+    <artifactId>tago-java-maven-plugin</artifactId>
+    <version>4.0.1</version>
+</dependency>
+```
+
+Gradle
+``` gradle
+compile 'io.tago.java:tago-java-maven-plugin:4.0.1'
+```
+
+[Other Options](http://search.maven.org/#artifactdetails%7Cio.tago.java%7Ctago-java-maven-plugin%7C4.0.1%7Cjar)
+
+
 # Quick Example
 ## Insert Device Data
 ``` java
