@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.tago.java</groupId>
     <artifactId>tago-java-maven-plugin</artifactId>
-    <version>4.0.3-SNAPSHOT</version>
+    <version>4.0.3</version>
     <packaging>jar</packaging>
     <name>Tago Java SDK</name>
     <description>SDK for the tago api</description>
@@ -25,7 +25,7 @@
         <connection>scm:git:https://github.com/tago-io/tago-sdk-java.git</connection>
         <developerConnection>scm:git:https://github.com/tago-io/tago-sdk-java.git</developerConnection>
         <url>https://github.com/tago-io/tago-sdk-java.git</url>
-        <tag>4.0rev2</tag>
+        <tag>tago-java-maven-plugin-4.0.3</tag>
     </scm>
 
     <licenses>
